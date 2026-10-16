@@ -66,14 +66,10 @@ export async function getProcessosFromNotion(): Promise<ProcessSOP[]> {
     const response = await notion.databases.query({
       database_id: DATABASE_ID,
       filter: {
-        and: [
-          {
-            property: 'Status',
-            status: {
-              does_not_equal: 'Obsoleto',
-            },
-          },
-        ],
+        property: 'Status',
+        rich_text: {
+          does_not_contain: 'Obsoleto',
+        },
       },
       sorts: [{ property: 'Código', direction: 'ascending' }],
     });
