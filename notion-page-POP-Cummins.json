@@ -1,0 +1,375 @@
+{
+  "object": "page",
+  "icon": { "emoji": "📄" },
+  "properties": {
+    "Processos": {
+      "title": [
+        { "text": { "content": "Importação, Conferência e Arquivamento de NF – Cummins" } }
+      ]
+    },
+    "Código": { "rich_text": [{ "text": { "content": "SUP-NFE-001" } }] },
+    "Status": { "status": { "name": "Ativo" } },
+    "Área Macro": { "select": { "name": "Suprimentos" } },
+    "Subcategoria": { "select": { "name": "Nota Fiscal de Entrada" } },
+    "Categoria Específica": {
+      "multi_select": [
+        { "name": "Importação XML" },
+        { "name": "Lançamento Fiscal" },
+        { "name": "Arquivamento" }
+      ]
+    },
+    "Responsável": { "multi_select": [{ "name": "Analista de Suprimentos" }] }
+  },
+  "children": [
+    {
+      "object": "block",
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [{ "type": "text", "text": { "content": "Objetivo" } }]
+      }
+    },
+    {
+      "object": "block",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Padronizar o processo de importação, conferência, lançamento, digitalização, anexo e arquivamento das Notas Fiscais (NF) e documentos correlatos referentes às operações do cliente/fornecedor Cummins no sistema."
+            }
+          }
+        ]
+      }
+    },
+    { "object": "block", "type": "divider", "divider": {} },
+    {
+      "object": "block",
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [{ "type": "text", "text": { "content": "Parâmetros e Dados Cadastrais" } }]
+      }
+    },
+    {
+      "object": "block",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Ao realizar a configuração e os ajustes no sistema, utilizar os seguintes parâmetros:" }
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "TOP de Lançamento: " }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "1570" } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Código da Cidade (Cabeçalho): " }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "113" } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Configuração Financeiro/Imposto: " }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "Usar dados do arquivo" } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Diretório de Arquivamento: " }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "Suprimentos > 2026 > NF de Entrada > [Mês Vigente] > Cummins" } }
+        ]
+      }
+    },
+    { "object": "block", "type": "divider", "divider": {} },
+    {
+      "object": "block",
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [{ "type": "text", "text": { "content": "Passo a Passo do Processo" } }]
+      }
+    }
+,
+    {
+      "object": "block",
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [{ "type": "text", "text": { "content": "1. Importação do XML" } }]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Acessar o " } },
+          { "type": "text", "text": { "content": "Portal de Importações XML" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Clicar em " } },
+          { "type": "text", "text": { "content": "Aplicar" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": " e informar o número da Nota Fiscal (" } },
+          { "type": "text", "text": { "content": "Nº NF" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": ")." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Executar a ação " } },
+          { "type": "text", "text": { "content": "Processar Documento" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [{ "type": "text", "text": { "content": "2. Configuração do Lançamento e Validação" } }]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Definir a " } },
+          { "type": "text", "text": { "content": "TOP 1570" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Para evitar possíveis erros de validação nas abas " } },
+          { "type": "text", "text": { "content": "Financeiro" }, "annotations": { "italic": true } },
+          { "type": "text", "text": { "content": " e " } },
+          { "type": "text", "text": { "content": "Imposto" }, "annotations": { "italic": true } },
+          { "type": "text", "text": { "content": ":" } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Clicar na grade." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Localizar as abas " } },
+          { "type": "text", "text": { "content": "Financeiro" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": " e " } },
+          { "type": "text", "text": { "content": "Imposto" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Alterar a configuração de ambas para " } },
+          { "type": "text", "text": { "content": "Usar dados do arquivo" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Executar a opção " } },
+          { "type": "text", "text": { "content": "Validar Importação" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "." } }
+        ]
+      }
+    }
+,
+    {
+      "object": "block",
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [{ "type": "text", "text": { "content": "3. Registro Físico e Ajustes no Cabeçalho" } }]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Anotar o " } },
+          { "type": "text", "text": { "content": "Número Único (NU)" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": " gerado diretamente no documento físico da NF." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Abrir o documento no sistema." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "No cabeçalho, alterar o " } },
+          { "type": "text", "text": { "content": "Código da Cidade" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": " para " } },
+          { "type": "text", "text": { "content": "113" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [{ "type": "text", "text": { "content": "4. Digitalização, Arquivamento e Anexo" } }]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Digitalizar (scanner) os documentos físicos: " } },
+          { "type": "text", "text": { "content": "NF" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": ", " } },
+          { "type": "text", "text": { "content": "CT-e" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": " e " } },
+          { "type": "text", "text": { "content": "PIN" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": " (se houver)." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Salvar o arquivo digitalizado no diretório da rede: " } },
+          { "type": "text", "text": { "content": "Suprimentos > 2026 > NF de Entrada > [Mês Vigente] > Cummins" }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Renomear o arquivo conforme o padrão utilizado na pasta." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Anexar os documentos digitalizados ao lançamento correspondente dentro do sistema." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          { "type": "text", "text": { "content": "Enviar e-mail de confirmação do lançamento contendo os anexos correspondentes." } }
+        ]
+      }
+    }
+,
+    { "object": "block", "type": "divider", "divider": {} },
+    {
+      "object": "block",
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [{ "type": "text", "text": { "content": "Regras de Exceção e Observações" } }]
+      }
+    },
+    {
+      "object": "block",
+      "type": "callout",
+      "callout": {
+        "icon": { "emoji": "⚠️" },
+        "rich_text": [
+          { "type": "text", "text": { "content": "Divergências/Erros no Financeiro ou Imposto: " }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "Garantir que as opções nas abas Financeiro e Imposto estejam configuradas para \"Usar dados do arquivo\" antes de tentar revalidar a importação." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "callout",
+      "callout": {
+        "icon": { "emoji": "⚠️" },
+        "rich_text": [
+          { "type": "text", "text": { "content": "Ausência de PIN ou CT-e: " }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "Verificar a obrigatoriedade desses anexos junto à equipe de logística/suprimentos antes de concluir a etapa e enviar o e-mail de confirmação." } }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "callout",
+      "callout": {
+        "icon": { "emoji": "⚠️" },
+        "rich_text": [
+          { "type": "text", "text": { "content": "Identificação do NU: " }, "annotations": { "bold": true } },
+          { "type": "text", "text": { "content": "É indispensável registrar manualmente o número da NU na folha física da NF para rastreabilidade auditável." } }
+        ]
+      }
+    }
+  ]
+}

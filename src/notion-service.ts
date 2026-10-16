@@ -113,9 +113,9 @@ export async function getProcessContent(pageId: string): Promise<string> {
  * O notion-to-md frequentemente converte todos os "numbered_list_item" do Notion
  * como "1." independente da posição — o número correto é dinâmico no Notion e
  * não está armazenado no bloco. Esta função reescreve os números em sequência
- * por nível de indentação, resetando o contador apenas quando um título (heading)
- * ou divisor (---) aparecer, que são os únicos elementos que genuinamente separam
- * listas distintas no Notion.
+ * por nível de indentação, resetando o contador quando:
+ * - Aparece um título (heading) ou divisor (---), ou
+ * - Uma nova lista reinicia em "1." após uma linha em branco.
  */
 function renumberLists(md: string): string {
   const lines = md.split('\n');
@@ -123,15 +123,19 @@ function renumberLists(md: string): string {
   // Mapeia indentação (nº de espaços) → contador atual
   const counters = new Map<number, number>();
 
-  for (const line of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
     // Linha de item numerado: captura indentação, número antigo e texto
     const m = line.match(/^( *)(\d+)\. ([\s\S]*)/);
+
     if (m) {
       const indent = m[1].length;
-      const text  = m[3];
+      const text = m[3];
 
       // Remove contadores de níveis mais profundos (saiu de sub-lista)
-      counters.forEach((_, k) => { if (k > indent) counters.delete(k); });
+      for (const k of Array.from(counters.keys())) {
+        if (k > indent) counters.delete(k);
+      }
 
       const count = (counters.get(indent) ?? 0) + 1;
       counters.set(indent, count);
@@ -140,6 +144,17 @@ function renumberLists(md: string): string {
     } else if (/^#{1,6} /.test(line) || /^-{3,}$/.test(line)) {
       // Título ou divisor → inicia nova seção → reseta todos os contadores
       counters.clear();
+      out.push(line);
+
+    } else if (line.trim() === '') {
+      // Linha em branco: verifica se a próxima lista reinicia em "1."
+      let nextIdx = i + 1;
+      while (nextIdx < lines.length && lines[nextIdx].trim() === '') nextIdx++;
+      const nextLine = lines[nextIdx] || '';
+      const nextM = nextLine.match(/^( *)(\d+)\. /);
+      if (nextM && nextM[2] === '1') {
+        counters.clear();
+      }
       out.push(line);
 
     } else {
