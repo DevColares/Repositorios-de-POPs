@@ -671,7 +671,8 @@
             const popId = link.getAttribute('data-pop-id');
             if (popId) {
                 e.preventDefault();
-                openSopModal(popId);
+                closeSopModal(); // Fecha o modal atual antes de abrir o próximo
+                openSopModal(popId); // Abre o novo POP (assíncrono)
                 // Atualiza a URL sem recarregar a página
                 window.history.pushState({}, '', '?pop=' + encodeURIComponent(popId));
             }
