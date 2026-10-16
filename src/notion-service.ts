@@ -10,19 +10,45 @@ const notion = new Client({
 
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
+// Helper para aplicar annotations básicas do Notion a rich_text
+function richTextToMarkdown(richText: any[]): string {
+  return (richText || [])
+    .map((t: any) => {
+      let text = t.plain_text || '';
+      const annotations = t.annotations || {};
+      if (annotations.code && text.trim()) text = `\`${text}\``;
+      if (annotations.bold && text.trim()) text = `**${text}**`;
+      if (annotations.italic && text.trim()) text = `_${text}_`;
+      if (annotations.strikethrough && text.trim()) text = `~~${text}~~`;
+      if (annotations.underline && text.trim()) text = `<u>${text}</u>`;
+      if (t.href) text = `[${text}](${t.href})`;
+      return text;
+    })
+    .join('');
+}
+
 // Custom transformer para callouts do Notion: preserva icone, titulo e cor
 n2m.setCustomTransformer('callout', async (block: any) => {
   const { callout } = block;
   if (!callout) return '';
 
-  const text = (callout.rich_text || [])
-    .map((t: any) => t.plain_text)
-    .join('')
-    .trim();
+  const text = richTextToMarkdown(callout.rich_text);
   const icon = callout.icon?.emoji || '💡';
 
   // Converte para um blockquote estilizado que o marked renderiza bem
   return `> ${icon} **Aviso:** ${text}`;
+});
+
+// notion-to-md v3.1.9 só converte heading_1/2/3. Adicionamos suporte a
+// heading_4, heading_5 e heading_6 para que eles não apareçam como texto simples.
+(['heading_4', 'heading_5', 'heading_6'] as const).forEach((type, idx) => {
+  const level = 4 + idx; // 4, 5, 6
+  n2m.setCustomTransformer(type, async (block: any) => {
+    const heading = block[type];
+    if (!heading) return '';
+    const text = richTextToMarkdown(heading.rich_text);
+    return `${'#'.repeat(level)} ${text}`;
+  });
 });
 
 const DATABASE_ID = process.env.NOTION_DATABASE_ID || '';
@@ -100,7 +126,10 @@ export async function getProcessContent(pageId: string): Promise<string> {
     const mdblocks = await n2m.pageToMarkdown(pageId, 2);
     const mdString = n2m.toMarkdownString(mdblocks);
     const raw = mdString.parent || '';
-    return renumberLists(raw);
+    const corrected = renumberLists(raw);
+    // Debug: ajuda a conferir se headings e numeração estão corretos no servidor
+    // console.log('[getProcessContent] pageId:', pageId, '\n', corrected);
+    return corrected;
   } catch (error) {
     console.error('Erro ao buscar conteúdo da página:', error);
     return '';
@@ -141,8 +170,8 @@ function renumberLists(md: string): string {
       counters.set(indent, count);
       out.push(`${m[1]}${count}. ${text}`);
 
-    } else if (/^#{1,6} /.test(line) || /^-{3,}$/.test(line)) {
-      // Título ou divisor → inicia nova seção → reseta todos os contadores
+    } else if (/^[ \t]*#{1,6}[ \t]+/.test(line) || /^[ \t]*-{3,}\s*$/.test(line)) {
+      // Título (h1–h6) ou divisor → inicia nova seção → reseta todos os contadores
       counters.clear();
       out.push(line);
 

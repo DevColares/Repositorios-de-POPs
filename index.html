@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Processos & SOPs - Almoxarifado / Logística</title>
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN + Typography plugin: carregamos ambos e registramos
+         o plugin explicitamente para garantir que as classes .prose funcionem -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script src="https://unpkg.com/@tailwindcss/typography@0.5.15/dist/typography.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
+            plugins: [window.tailwindcss?.plugin?.typography].filter(Boolean),
             theme: {
                 extend: {
                     colors: {
@@ -88,6 +91,33 @@
         .prose ul > li {
             margin-top: 0.25rem;
             margin-bottom: 0.25rem;
+        }
+        /* Fallback explícito para títulos gerados pelo markdown do Notion:
+           garante que h1–h6 tenham peso, tamanho e cor diferenciados mesmo se
+           o plugin Typography não carregar corretamente. */
+        .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+            font-weight: 700;
+            line-height: 1.25;
+            color: #0f172a;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .dark .prose h1, .dark .prose h2, .dark .prose h3,
+        .dark .prose h4, .dark .prose h5, .dark .prose h6 {
+            color: #f8fafc;
+        }
+        .prose h1 { font-size: 1.75rem; }
+        .prose h2 { font-size: 1.5rem; }
+        .prose h3 { font-size: 1.25rem; }
+        .prose h4 { font-size: 1.125rem; }
+        .prose h5 { font-size: 1rem; }
+        .prose h6 { font-size: 0.875rem; }
+        /* O primeiro título do conteúdo não precisa de margem superior grande */
+        .prose > h1:first-child,
+        .prose > h2:first-child,
+        .prose > h3:first-child,
+        .prose > h4:first-child {
+            margin-top: 0;
         }
     </style>
 </head>
@@ -388,11 +418,19 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
          * - Remove linhas em branco entre itens sequenciais (notion-to-md às vezes
          *   insere blanks entre itens de uma mesma lista)
          * - Insere separador HTML quando uma nova lista reinicia a partir de 1
+         * - Preserva linhas em branco ao redor de títulos (h1–h6) e divisores
          */
+        const headingReg = /^(#{1,6})\s+.+$/;
+        const dividerReg = /^-{3,}\s*$/;
+        const numReg = /^( *)(\d+)\. /;
+
+        function isHeadingOrDivider(line) {
+            return headingReg.test(line.trim()) || dividerReg.test(line.trim());
+        }
+
         function normalizeNumberedLists(md) {
             const lines = md.split('\n');
             const result = [];
-            const numReg = /^( *)(\d+)\. /;
 
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
@@ -407,6 +445,13 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
                     let nextIdx = i + 1;
                     while (nextIdx < lines.length && lines[nextIdx].trim() === '') nextIdx++;
                     const nextLine = nextIdx < lines.length ? lines[nextIdx] : '';
+
+                    // Nunca compacta em torno de títulos/divisores para não
+                    // prejudicar o parsing do marked/Tailwind prose
+                    if (isHeadingOrDivider(lastNonBlank) || isHeadingOrDivider(nextLine)) {
+                        result.push(line);
+                        continue;
+                    }
 
                     const prevM = lastNonBlank.match(numReg);
                     const nextM = nextLine.match(numReg);
@@ -442,7 +487,9 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
          * e garantindo que listas numeradas reiniciem a contagem.
          */
         function renderNotionMarkdown(mdContent) {
-            let md = normalizeNumberedLists(mdContent || '*Nenhum conteúdo encontrado para este processo.*');
+            const md = normalizeNumberedLists(mdContent || '*Nenhum conteúdo encontrado para este processo.*');
+            // Debug: descomente a linha abaixo no console do navegador para inspecionar
+            // console.log('[renderNotionMarkdown] markdown:', md);
             const rawHtml = marked.parse(md);
 
             // Transforma blockquotes de callouts do Notion em divs estilizadas
