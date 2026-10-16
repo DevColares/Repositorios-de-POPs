@@ -274,15 +274,14 @@
 
                 <!-- FILTER DROPDOWNS -->
                 <div
-                    class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-100 dark:border-slate-700/60">
-                    <!-- Área Macro Filter -->
+                    class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-100 dark:border-slate-700/60">
+                    <!-- Setor Filter -->
                     <div>
                         <label
-                            class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Área
-                            Macro</label>
+                            class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Setor</label>
                         <select id="filter-macro" onchange="applyFilters()"
                             class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
-                            <option value="">Todas as Áreas</option>
+                            <option value="">Todos os Setores</option>
                         </select>
                     </div>
 
@@ -291,17 +290,6 @@
                         <label
                             class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Categoria</label>
                         <select id="filter-sub" onchange="applyFilters()"
-                            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
-                            <option value="">Todas as Categorias</option>
-                        </select>
-                    </div>
-
-                    <!-- Categoria Específica Filter -->
-                    <div>
-                        <label
-                            class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Categoria
-                            Específica</label>
-                        <select id="filter-specific" onchange="applyFilters()"
                             class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
                             <option value="">Todas as Categorias</option>
                         </select>
@@ -537,6 +525,8 @@
         /**
          * Renderiza markdown do Notion para HTML, preservando callouts, tabelas
          * e garantindo que listas numeradas reiniciem a contagem.
+         * Links contendo ?pop=ID são transformados em links internos que abrem
+         * a POP correspondente dentro do portal (sem sair da página).
          */
         function renderNotionMarkdown(mdContent) {
             const md = normalizeNumberedLists(mdContent || '*Nenhum conteúdo encontrado para este processo.*');
@@ -545,10 +535,18 @@
             const rawHtml = marked.parse(md);
 
             // Transforma blockquotes de callouts do Notion em divs estilizadas
-            return rawHtml.replace(
+            let html = rawHtml.replace(
                 /<blockquote>\s*(<p>)?\s*(\p{Emoji})\s*<strong>Aviso:<\/strong>\s*(.*?)\s*(<\/p>)?\s*<\/blockquote>/gus,
                 '<div class="notion-callout"><p>$2 <strong>Aviso:</strong> $3</p></div>'
             );
+
+            // Marca links internos (?pop=...) para abrir no modal do portal
+            html = html.replace(
+                /<a href="([^"]*\?pop=([^"&]+))"([^>]*)>/gi,
+                '<a href="?pop=$2" class="internal-pop-link" data-pop-id="$2"$3>'
+            );
+
+            return html;
         }
 
         async function fetchSops() {
@@ -581,32 +579,34 @@
         function populateFilterDropdowns() {
             const macroSelect = document.getElementById('filter-macro');
             const subSelect = document.getElementById('filter-sub');
-            const specSelect = document.getElementById('filter-specific');
 
             const macros = [...new Set(sopDatabase.map(s => s.areaMacro))];
             const subs = [...new Set(sopDatabase.map(s => s.subcategoria))];
-            const specs = [...new Set(sopDatabase.flatMap(s => s.categoriaEspecifica || []))];
 
-            macroSelect.innerHTML = '<option value="">Todas as Áreas</option>' + macros.map(m => `<option value="${m}">${m}</option>`).join('');
-            subSelect.innerHTML = '<option value="">Todas as Subcategorias</option>' + subs.map(s => `<option value="${s}">${s}</option>`).join('');
-            specSelect.innerHTML = '<option value="">Todas as Categorias</option>' + specs.map(e => `<option value="${e}">${e}</option>`).join('');
+            macroSelect.innerHTML = '<option value="">Todos os Setores</option>' + macros.map(m => `<option value="${m}">${m}</option>`).join('');
+            subSelect.innerHTML = '<option value="">Todas as Categorias</option>' + subs.map(s => `<option value="${s}">${s}</option>`).join('');
         }
 
         function applyFilters() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
             const macro = document.getElementById('filter-macro').value;
             const sub = document.getElementById('filter-sub').value;
-            const spec = document.getElementById('filter-specific').value;
 
             filteredSops = sopDatabase.filter(sop => {
                 const matchMacro = !macro || sop.areaMacro === macro;
                 const matchSub = !sub || sop.subcategoria === sub;
-                const matchSpec = !spec || (sop.categoriaEspecifica || []).includes(spec);
                 const matchText = !searchTerm || sop.codigo.toLowerCase().includes(searchTerm) || sop.titulo.toLowerCase().includes(searchTerm);
-                return matchMacro && matchSub && matchSpec && matchText;
+                return matchMacro && matchSub && matchText;
             });
 
             renderSopCards();
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('filter-macro').value = '';
+            document.getElementById('filter-sub').value = '';
+            applyFilters();
         }
 
         function renderSopCards() {
@@ -663,9 +663,28 @@
             document.getElementById('sop-modal').classList.add('hidden');
         }
 
-        window.onload = function () {
+        // Intercepta cliques em links internos (?pop=ID) dentro do conteúdo do modal
+        document.getElementById('modal-body').addEventListener('click', function (e) {
+            const link = e.target.closest('a.internal-pop-link');
+            if (!link) return;
+
+            const popId = link.getAttribute('data-pop-id');
+            if (popId) {
+                e.preventDefault();
+                openSopModal(popId);
+                // Atualiza a URL sem recarregar a página
+                window.history.pushState({}, '', '?pop=' + encodeURIComponent(popId));
+            }
+        });
+
+        window.onload = async function () {
             initTheme();
-            fetchSops();
+            await fetchSops();
+            const params = new URLSearchParams(window.location.search);
+            const popId = params.get('pop');
+            if (popId) {
+                openSopModal(popId);
+            }
         };
     </script>
 </body>
