@@ -661,6 +661,10 @@
 
         function closeSopModal() {
             document.getElementById('sop-modal').classList.add('hidden');
+            // Remove o parâmetro ?pop= da URL para não reabrir ao dar F5
+            const url = new URL(window.location);
+            url.searchParams.delete('pop');
+            window.history.pushState({}, '', url);
         }
 
         // Intercepta cliques em links internos (?pop=ID) dentro do conteúdo do modal
@@ -671,8 +675,7 @@
             const popId = link.getAttribute('data-pop-id');
             if (popId) {
                 e.preventDefault();
-                closeSopModal(); // Fecha o modal atual antes de abrir o próximo
-                openSopModal(popId); // Abre o novo POP (assíncrono)
+                openSopModal(popId); // Abre o novo POP dentro do mesmo modal
                 // Atualiza a URL sem recarregar a página
                 window.history.pushState({}, '', '?pop=' + encodeURIComponent(popId));
             }
