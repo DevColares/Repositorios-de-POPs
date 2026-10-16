@@ -87,6 +87,40 @@ function getMultiSelectProp(prop: any): string[] {
   return prop.multi_select.map((item: any) => item.name).filter(Boolean);
 }
 
+/**
+ * Extrai a lista de responsáveis/executantes de forma tolerante,
+ * suportando vários nomes de propriedade e tipos do Notion.
+ */
+function getResponsaveis(props: Record<string, any>): string[] {
+  const possibleNames = ['Responsável', 'Responsaveis', 'Responsáveis', 'Executante', 'Executantes', 'Owner', 'Owners'];
+
+  for (const name of possibleNames) {
+    const prop = props[name];
+    if (!prop) continue;
+
+    if (prop.multi_select?.length) {
+      return prop.multi_select.map((item: any) => item.name).filter(Boolean);
+    }
+    if (prop.people?.length) {
+      return prop.people
+        .map((p: any) => p.name || p.person?.name || p.person?.email)
+        .filter(Boolean);
+    }
+    if (prop.select?.name) return [prop.select.name];
+    if (prop.status?.name) return [prop.status.name];
+    if (prop.rich_text?.length) {
+      const text = prop.rich_text.map((t: any) => t.plain_text).filter(Boolean).join(', ');
+      if (text) return [text];
+    }
+    if (prop.title?.length) {
+      const text = prop.title.map((t: any) => t.plain_text).filter(Boolean).join(', ');
+      if (text) return [text];
+    }
+  }
+
+  return [];
+}
+
 export async function getProcessosFromNotion(): Promise<ProcessSOP[]> {
   try {
     const response = await notion.databases.query({
@@ -100,6 +134,12 @@ export async function getProcessosFromNotion(): Promise<ProcessSOP[]> {
       sorts: [{ property: 'Código', direction: 'ascending' }],
     });
 
+    // Debug: descomente para conferir os nomes/tipos das propriedades no console
+    // if (response.results.length > 0) {
+    //   console.log('[getProcessosFromNotion] propriedades:', Object.keys(response.results[0].properties));
+    //   console.log('[getProcessosFromNotion] exemplo:', response.results[0].properties);
+    // }
+
     return response.results.map((page: any) => {
       const props = page.properties;
       return {
@@ -109,7 +149,7 @@ export async function getProcessosFromNotion(): Promise<ProcessSOP[]> {
         areaMacro: getTextProp(props['Área Macro']) || 'Geral',
         subcategoria: getTextProp(props['Subcategoria']) || 'Geral',
         categoriaEspecifica: getMultiSelectProp(props['Categoria Específica']),
-        responsavel: getMultiSelectProp(props['Responsável']),
+        responsavel: getResponsaveis(props),
         status: getTextProp(props['Status']) || 'Ativo',
         lastEdited: page.last_edited_time,
         objetivo: '',

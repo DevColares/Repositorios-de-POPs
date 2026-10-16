@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,34 +42,65 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+
         /* Custom scrollbar for clean operational layout */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
+
         ::-webkit-scrollbar-track {
             background: transparent;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 9999px;
         }
+
         .dark ::-webkit-scrollbar-thumb {
             background: #334155;
         }
+
         @media print {
-            .no-print { display: none !important; }
-            .print-only { display: block !important; }
-            body { background: white !important; color: black !important; }
-            .print-container { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; box-shadow: none !important; }
+            .no-print {
+                display: none !important;
+            }
+
+            .print-only {
+                display: block !important;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            .print-container {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+            }
         }
+
         @keyframes pulse-subtle {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
         }
+
         .animate-pulse-subtle {
             animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
+
         /* Estilos para callouts vindos do Notion (convertidos para blockquote) */
         .notion-callout {
             border-left: 4px solid #0ea5e9;
@@ -77,54 +109,93 @@
             border-radius: 0.5rem;
             margin: 1rem 0;
         }
+
         .dark .notion-callout {
             background-color: rgba(14, 165, 233, 0.15);
             border-left-color: #38bdf8;
         }
-        .notion-callout p { margin: 0; }
+
+        .notion-callout p {
+            margin: 0;
+        }
+
         /* Listas numeradas: deixa o browser e o Tailwind prose gerenciarem a
            numeração nativamente — respeita o atributo HTML start= */
         .prose ol {
             list-style-type: decimal;
         }
-        .prose ol > li,
-        .prose ul > li {
+
+        .prose ol>li,
+        .prose ul>li {
             margin-top: 0.25rem;
             margin-bottom: 0.25rem;
         }
+
         /* Fallback explícito para títulos gerados pelo markdown do Notion:
            garante que h1–h6 tenham peso, tamanho e cor diferenciados mesmo se
            o plugin Typography não carregar corretamente. */
-        .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+        .prose h1,
+        .prose h2,
+        .prose h3,
+        .prose h4,
+        .prose h5,
+        .prose h6 {
             font-weight: 700;
             line-height: 1.25;
             color: #0f172a;
             margin-top: 1.5em;
             margin-bottom: 0.5em;
         }
-        .dark .prose h1, .dark .prose h2, .dark .prose h3,
-        .dark .prose h4, .dark .prose h5, .dark .prose h6 {
+
+        .dark .prose h1,
+        .dark .prose h2,
+        .dark .prose h3,
+        .dark .prose h4,
+        .dark .prose h5,
+        .dark .prose h6 {
             color: #f8fafc;
         }
-        .prose h1 { font-size: 1.75rem; }
-        .prose h2 { font-size: 1.5rem; }
-        .prose h3 { font-size: 1.25rem; }
-        .prose h4 { font-size: 1.125rem; }
-        .prose h5 { font-size: 1rem; }
-        .prose h6 { font-size: 0.875rem; }
+
+        .prose h1 {
+            font-size: 1.75rem;
+        }
+
+        .prose h2 {
+            font-size: 1.5rem;
+        }
+
+        .prose h3 {
+            font-size: 1.25rem;
+        }
+
+        .prose h4 {
+            font-size: 1.125rem;
+        }
+
+        .prose h5 {
+            font-size: 1rem;
+        }
+
+        .prose h6 {
+            font-size: 0.875rem;
+        }
+
         /* O primeiro título do conteúdo não precisa de margem superior grande */
-        .prose > h1:first-child,
-        .prose > h2:first-child,
-        .prose > h3:first-child,
-        .prose > h4:first-child {
+        .prose>h1:first-child,
+        .prose>h2:first-child,
+        .prose>h3:first-child,
+        .prose>h4:first-child {
             margin-top: 0;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+<body
+    class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
 
     <!-- TOP HEADER NAVBAR -->
-    <header class="no-print bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 shadow-sm">
+    <header
+        class="no-print bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo & Portal Title -->
@@ -133,10 +204,12 @@
                         <i class="fa-solid fa-boxes-packing text-xl"></i>
                     </div>
                     <div>
-                        <h1 class="font-bold text-lg leading-snug text-slate-900 dark:text-white flex items-center gap-2">
+                        <h1
+                            class="font-bold text-lg leading-snug text-slate-900 dark:text-white flex items-center gap-2">
                             Portal de SOPs
                         </h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Almoxarifado & Logística Operacional Integrada</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Almoxarifado & Logística Operacional
+                            Integrada</p>
                     </div>
                 </div>
 
@@ -144,17 +217,15 @@
                 <div class="flex items-center space-x-2 sm:space-x-4">
                     <!-- Tab Switcher -->
                     <nav class="flex bg-slate-100 dark:bg-slate-700/60 p-1 rounded-xl text-xs font-medium">
-                        <button id="nav-catalog-btn" onclick="switchMainTab('catalog')" class="px-3 py-1.5 rounded-lg text-brand-700 dark:text-brand-300 bg-white dark:bg-slate-800 shadow-sm transition-all flex items-center gap-1.5 font-semibold">
+                        <button id="nav-catalog-btn"
+                            class="px-3 py-1.5 rounded-lg text-brand-700 dark:text-brand-300 bg-white dark:bg-slate-800 shadow-sm transition-all flex items-center gap-1.5 font-semibold">
                             <i class="fa-solid fa-book-open"></i> <span class="hidden sm:inline">Catálogo</span>
-                        </button>
-
-                        <button id="nav-api-btn" onclick="switchMainTab('api')" class="px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all flex items-center gap-1.5">
-                            <i class="fa-solid fa-code"></i> <span class="hidden sm:inline">API/Node</span>
                         </button>
                     </nav>
 
                     <!-- Dark Mode Toggle -->
-                    <button onclick="toggleDarkMode()" title="Alternar Modo Escuro/Claro" class="p-2.5 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+                    <button onclick="toggleDarkMode()" title="Alternar Modo Escuro/Claro"
+                        class="p-2.5 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition">
                         <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
                     </button>
                 </div>
@@ -167,54 +238,71 @@
 
         <!-- TAB 1: SOP CATALOG VIEW -->
         <div id="tab-catalog" class="space-y-6">
-            
+
             <!-- SEARCH, ACTION BAR AND AI BUTTON -->
-            <div class="bg-white dark:bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+            <div
+                class="bg-white dark:bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
                 <div class="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
                     <!-- Search Input Box -->
                     <div class="relative flex-grow">
-                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <div
+                            class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                             <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
                         </div>
-                        <input type="text" id="search-input" oninput="handleSearch()" placeholder="Pesquise por nome, código (ex: REC-CTE-001), tag ou termo..." class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition text-slate-900 dark:text-white placeholder-slate-400">
-                        <button id="clear-search-btn" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                        <input type="text" id="search-input" oninput="handleSearch()"
+                            placeholder="Pesquise por nome, código (ex: REC-CTE-001), tag ou termo..."
+                            class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition text-slate-900 dark:text-white placeholder-slate-400">
+                        <button id="clear-search-btn" onclick="clearSearch()"
+                            class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
                             <i class="fa-solid fa-circle-xmark"></i>
                         </button>
                     </div>
 
                     <!-- Quick AI Generator Action & Count -->
-                    <div class="flex items-center justify-between sm:justify-end gap-3 border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 dark:border-slate-700">
+                    <div
+                        class="flex items-center justify-between sm:justify-end gap-3 border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 dark:border-slate-700">
 
 
-                        <div class="bg-slate-100 dark:bg-slate-700/50 px-3 py-2 rounded-xl flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                        <div
+                            class="bg-slate-100 dark:bg-slate-700/50 px-3 py-2 rounded-xl flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
                             <i class="fa-solid fa-file-lines text-brand-600 dark:text-brand-400"></i>
-                            <span>Processos: <strong id="sop-count" class="text-slate-900 dark:text-white font-bold">0</strong></span>
+                            <span>Processos: <strong id="sop-count"
+                                    class="text-slate-900 dark:text-white font-bold">0</strong></span>
                         </div>
                     </div>
                 </div>
 
                 <!-- FILTER DROPDOWNS -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-100 dark:border-slate-700/60">
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-100 dark:border-slate-700/60">
                     <!-- Área Macro Filter -->
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Área Macro</label>
-                        <select id="filter-macro" onchange="applyFilters()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <label
+                            class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Área
+                            Macro</label>
+                        <select id="filter-macro" onchange="applyFilters()"
+                            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
                             <option value="">Todas as Áreas</option>
                         </select>
                     </div>
 
-                    <!-- Subcategoria Filter -->
+                    <!-- Categoria Filter -->
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Subcategoria</label>
-                        <select id="filter-sub" onchange="applyFilters()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
-                            <option value="">Todas as Subcategorias</option>
+                        <label
+                            class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Categoria</label>
+                        <select id="filter-sub" onchange="applyFilters()"
+                            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="">Todas as Categorias</option>
                         </select>
                     </div>
 
                     <!-- Categoria Específica Filter -->
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Categoria Específica</label>
-                        <select id="filter-specific" onchange="applyFilters()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <label
+                            class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Categoria
+                            Específica</label>
+                        <select id="filter-specific" onchange="applyFilters()"
+                            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
                             <option value="">Todas as Categorias</option>
                         </select>
                     </div>
@@ -227,88 +315,20 @@
             </div>
 
             <!-- EMPTY STATE -->
-            <div id="empty-state" class="hidden text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 p-8">
-                <div class="w-16 h-16 bg-slate-100 dark:bg-slate-700 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+            <div id="empty-state"
+                class="hidden text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 p-8">
+                <div
+                    class="w-16 h-16 bg-slate-100 dark:bg-slate-700 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                     <i class="fa-solid fa-folder-open"></i>
                 </div>
                 <h3 class="font-bold text-slate-800 dark:text-slate-200 text-base">Nenhum processo encontrado</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">Tente ajustar seus termos de busca.</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">Tente ajustar seus termos de
+                    busca.</p>
                 <div class="mt-4 flex justify-center gap-3">
-                    <button onclick="resetFilters()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold rounded-xl transition">
+                    <button onclick="resetFilters()"
+                        class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold rounded-xl transition">
                         Limpar Filtros
                     </button>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- TAB 3: NOTION INTEGRATION GUIDE VIEW -->
-        <div id="tab-api" class="hidden space-y-6">
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-6">
-                <div class="border-b border-slate-200 dark:border-slate-700 pb-4">
-                    <div class="flex items-center gap-2 text-brand-600 dark:text-brand-400 font-semibold text-xs uppercase tracking-wider">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Headless Architecture
-                    </div>
-                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-1">Como integrar a API do Notion em Node.js com TypeScript</h2>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Código prático do backend para consultar dinamicamente a database do Notion.</p>
-                </div>
-
-                <!-- Code Block Section -->
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between bg-slate-900 text-slate-300 px-4 py-2.5 rounded-t-xl text-xs font-mono">
-                        <span class="flex items-center gap-2"><i class="fa-brands fa-node-js text-green-500"></i> src/notion-service.ts</span>
-                        <button onclick="copyCodeSnippet()" class="text-slate-400 hover:text-white text-xs flex items-center gap-1 transition">
-                            <i class="fa-regular fa-copy"></i> Copiar Código
-                        </button>
-                    </div>
-                    <pre class="bg-slate-950 text-slate-100 p-4 rounded-b-xl text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800"><code id="code-snippet">import { Client } from '@notionhq/client';
-
-const notion = new Client({
-  auth: process.env.NOTION_API_KEY,
-});
-
-const DATABASE_ID = process.env.NOTION_DATABASE_ID || '';
-
-export interface ProcessSOP {
-  id: string;
-  codigo: string;
-  titulo: string;
-  areaMacro: string;
-  subcategoria: string;
-  categoriaEspecifica: string[];
-  responsavel: string[];
-  status: string;
-  lastEdited: string;
-}
-
-export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
-  try {
-    const response = await notion.databases.query({
-      database_id: DATABASE_ID,
-      filter: { property: 'Status', status: { does_not_equal: 'Obsoleto' } },
-      sorts: [{ property: 'Código', direction: 'ascending' }],
-    });
-
-    return response.results.map((page: any) => {
-      const props = page.properties;
-      return {
-        id: page.id,
-        codigo: props['Código']?.rich_text[0]?.plain_text || 'S/N',
-        titulo: props['Processo']?.title[0]?.plain_text || 'Sem título',
-        areaMacro: props['Área Macro']?.select?.name || 'Geral',
-        subcategoria: props['Subcategoria']?.select?.name || 'Geral',
-        categoriaEspecifica: props['Categoria Específica']?.multi_select?.map((m: any) => m.name) || [],
-        responsavel: props['Responsável']?.multi_select?.map((m: any) => m.name) || [],
-        status: props['Status']?.status?.name || 'Ativo',
-        lastEdited: page.last_edited_time,
-      };
-    });
-  } catch (error) {
-    console.error('Erro ao conectar na API do Notion:', error);
-    throw error;
-  }
-}</code></pre>
                 </div>
             </div>
         </div>
@@ -319,22 +339,34 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
     <div id="sop-modal" class="fixed inset-0 z-50 hidden overflow-y-auto no-print" aria-modal="true">
         <div onclick="closeSopModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
         <div class="flex min-h-full items-center justify-center p-3 sm:p-6">
-            <div class="relative transform overflow-hidden rounded-2xl bg-white dark:bg-slate-800 text-left shadow-2xl transition-all w-full max-w-4xl border border-slate-200 dark:border-slate-700 my-8">
-                
+            <div
+                class="relative transform overflow-hidden rounded-2xl bg-white dark:bg-slate-800 text-left shadow-2xl transition-all w-full max-w-4xl border border-slate-200 dark:border-slate-700 my-8">
+
                 <!-- Modal Header Bar -->
-                <div class="sticky top-0 z-10 bg-white/95 dark:bg-slate-800/95 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+                <div
+                    class="sticky top-0 z-10 bg-white/95 dark:bg-slate-800/95 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex flex-wrap items-center justify-between gap-3">
                     <div class="flex items-center space-x-3">
-                        <span id="modal-code-badge" class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-brand-100 dark:bg-brand-900/80 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-700">CODE-000</span>
-                        <span id="modal-status-badge" class="text-xs px-2.5 py-1 rounded-lg font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Ativo</span>
+                        <span id="modal-code-badge"
+                            class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-brand-100 dark:bg-brand-900/80 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-700">CODE-000</span>
+                        <span id="modal-status-badge"
+                            class="text-xs px-2.5 py-1 rounded-lg font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Ativo</span>
                     </div>
 
                     <div class="flex flex-wrap items-center gap-2">
 
-                        <button onclick="printCurrentSop()" title="Imprimir" class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"><i class="fa-solid fa-print"></i></button>
-                        <button onclick="copySopLink()" title="Copiar Link" class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"><i class="fa-solid fa-link"></i></button>
-                        <button onclick="openQrModal()" title="QR Code" class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"><i class="fa-solid fa-qrcode"></i></button>
+                        <button onclick="printCurrentSop()" title="Imprimir"
+                            class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"><i
+                                class="fa-solid fa-print"></i></button>
+                        <button onclick="copySopLink()" title="Copiar Link"
+                            class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"><i
+                                class="fa-solid fa-link"></i></button>
+                        <button onclick="openQrModal()" title="QR Code"
+                            class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"><i
+                                class="fa-solid fa-qrcode"></i></button>
                         <div class="h-4 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
-                        <button onclick="closeSopModal()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition text-lg"><i class="fa-solid fa-xmark"></i></button>
+                        <button onclick="closeSopModal()"
+                            class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition text-lg"><i
+                                class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
 
@@ -343,24 +375,39 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
                 <!-- Modal Body Content -->
                 <div class="p-6 sm:p-8 space-y-6 max-h-[80vh] overflow-y-auto">
                     <div>
-                        <h2 id="modal-title" class="text-2xl font-bold text-slate-900 dark:text-white">Nome do Processo</h2>
+                        <h2 id="modal-title" class="text-2xl font-bold text-slate-900 dark:text-white">Nome do Processo
+                        </h2>
                         <div class="flex flex-wrap gap-2 mt-3 text-xs text-slate-600 dark:text-slate-300">
-                            <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i class="fa-solid fa-layer-group text-slate-400"></i> <span id="modal-macro">Área</span></span>
-                            <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i class="fa-solid fa-folder text-slate-400"></i> <span id="modal-sub">Subcategoria</span></span>
-                            <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i class="fa-solid fa-user-gear text-slate-400"></i> Executante: <span id="modal-resp" class="font-semibold text-slate-800 dark:text-slate-200">Cargo</span></span>
+                            <span
+                                class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i
+                                    class="fa-solid fa-layer-group text-slate-400"></i> <span
+                                    id="modal-macro">Área</span></span>
+                            <span
+                                class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i
+                                    class="fa-solid fa-folder text-slate-400"></i> <span
+                                    id="modal-sub">Subcategoria</span></span>
+                            <span
+                                class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i
+                                    class="fa-solid fa-user-gear text-slate-400"></i> Executante: <span id="modal-resp"
+                                    class="font-semibold text-slate-800 dark:text-slate-200">Cargo</span></span>
                         </div>
                     </div>
 
-                    <div id="modal-tags" class="flex flex-wrap gap-1.5 pt-1 border-t border-slate-100 dark:border-slate-700/60"></div>
+                    <div id="modal-tags"
+                        class="flex flex-wrap gap-1.5 pt-1 border-t border-slate-100 dark:border-slate-700/60"></div>
 
 
 
-                    <div id="modal-body" class="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-sm space-y-4 pt-2"></div>
+                    <div id="modal-body"
+                        class="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-sm space-y-4 pt-2">
+                    </div>
                 </div>
 
-                <div class="bg-slate-50 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-700 px-6 py-3 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                <div
+                    class="bg-slate-50 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-700 px-6 py-3 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                     <span>SOP Atualizado via Notion em <strong id="modal-date">08/10/2026</strong></span>
-                    <button onclick="closeSopModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold rounded-xl transition">Fechar</button>
+                    <button onclick="closeSopModal()"
+                        class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold rounded-xl transition">Fechar</button>
                 </div>
             </div>
         </div>
@@ -372,15 +419,20 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
     <div id="qr-modal" class="fixed inset-0 z-50 hidden overflow-y-auto no-print" aria-modal="true">
         <div onclick="closeQrModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
         <div class="flex min-h-full items-center justify-center p-4">
-            <div class="relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-2xl max-w-sm w-full text-center space-y-4 border border-slate-200 dark:border-slate-700">
+            <div
+                class="relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-2xl max-w-sm w-full text-center space-y-4 border border-slate-200 dark:border-slate-700">
                 <h3 class="font-bold text-slate-900 dark:text-white text-base">QR Code para Chão de Fábrica</h3>
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 inline-block mx-auto">
                     <img id="qr-image" src="" alt="QR Code" class="w-48 h-48 mx-auto">
                 </div>
-                <div class="text-xs font-mono font-bold text-brand-600 dark:text-brand-400" id="qr-code-label">REC-CTE-001</div>
+                <div class="text-xs font-mono font-bold text-brand-600 dark:text-brand-400" id="qr-code-label">
+                    REC-CTE-001</div>
                 <div class="pt-2 flex justify-center gap-2">
-                    <button onclick="printCurrentSop()" class="px-4 py-2 bg-brand-600 text-white text-xs font-semibold rounded-xl transition"><i class="fa-solid fa-print"></i> Imprimir Placa</button>
-                    <button onclick="closeQrModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition">Voltar</button>
+                    <button onclick="printCurrentSop()"
+                        class="px-4 py-2 bg-brand-600 text-white text-xs font-semibold rounded-xl transition"><i
+                            class="fa-solid fa-print"></i> Imprimir Placa</button>
+                    <button onclick="closeQrModal()"
+                        class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition">Voltar</button>
                 </div>
             </div>
         </div>
@@ -590,7 +642,10 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
             document.getElementById('modal-title').textContent = sop.titulo;
             document.getElementById('modal-macro').textContent = sop.areaMacro;
             document.getElementById('modal-sub').textContent = sop.subcategoria;
-            document.getElementById('modal-resp').textContent = sop.responsavel;
+            const responsaveis = Array.isArray(sop.responsavel) && sop.responsavel.length
+                ? sop.responsavel.join(', ')
+                : (sop.responsavel || 'Não informado');
+            document.getElementById('modal-resp').textContent = responsaveis;
             document.getElementById('modal-body').innerHTML = '<div class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-brand-500 text-2xl"></i><p class="text-xs text-slate-500 mt-2">Carregando conteúdo...</p></div>';
             document.getElementById('sop-modal').classList.remove('hidden');
 
@@ -608,17 +663,11 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
             document.getElementById('sop-modal').classList.add('hidden');
         }
 
-        function switchMainTab(tab) {
-            document.getElementById('tab-catalog').classList.add('hidden');
-
-            document.getElementById('tab-api').classList.add('hidden');
-            document.getElementById(`tab-${tab}`).classList.remove('hidden');
-        }
-
-        window.onload = function() {
+        window.onload = function () {
             initTheme();
             fetchSops();
         };
     </script>
 </body>
+
 </html>
