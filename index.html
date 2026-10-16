@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Processos & SOPs - Almoxarifado / LogÃ­stica</title>
+    <title>Portal de Processos & SOPs - Almoxarifado / Logística</title>
     <!-- Tailwind CSS CDN + Typography plugin: carregamos ambos e registramos
          o plugin explicitamente para garantir que as classes .prose funcionem -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -120,7 +120,7 @@
         }
 
         /* Listas numeradas: deixa o browser e o Tailwind prose gerenciarem a
-           numeraÃ§Ã£o nativamente â€” respeita o atributo HTML start= */
+           numeração nativamente — respeita o atributo HTML start= */
         .prose ol {
             list-style-type: decimal;
         }
@@ -131,9 +131,9 @@
             margin-bottom: 0.25rem;
         }
 
-        /* Fallback explÃ­cito para tÃ­tulos gerados pelo markdown do Notion:
-           garante que h1â€“h6 tenham peso, tamanho e cor diferenciados mesmo se
-           o plugin Typography nÃ£o carregar corretamente. */
+        /* Fallback explícito para títulos gerados pelo markdown do Notion:
+           garante que h1—h6 tenham peso, tamanho e cor diferenciados mesmo se
+           o plugin Typography não carregar corretamente. */
         .prose h1,
         .prose h2,
         .prose h3,
@@ -180,7 +180,7 @@
             font-size: 0.875rem;
         }
 
-        /* O primeiro tÃ­tulo do conteÃºdo nÃ£o precisa de margem superior grande */
+        /* O primeiro título do conteúdo não precisa de margem superior grande */
         .prose>h1:first-child,
         .prose>h2:first-child,
         .prose>h3:first-child,
@@ -208,7 +208,7 @@
                             class="font-bold text-lg leading-snug text-slate-900 dark:text-white flex items-center gap-2">
                             Portal de SOPs
                         </h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Almoxarifado & LogÃ­stica Operacional
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Almoxarifado & Logística Operacional
                             Integrada</p>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
                     <nav class="flex bg-slate-100 dark:bg-slate-700/60 p-1 rounded-xl text-xs font-medium">
                         <button id="nav-catalog-btn"
                             class="px-3 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 shadow-sm transition-all flex items-center gap-1.5 font-semibold">
-                            <i class="fa-solid fa-book-open"></i> <span class="hidden sm:inline">CatÃ¡logo</span>
+                            <i class="fa-solid fa-book-open"></i> <span class="hidden sm:inline">Catálogo</span>
                         </button>
                     </nav>
 
@@ -250,7 +250,7 @@
                             <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
                         </div>
                         <input type="text" id="search-input" oninput="handleSearch()"
-                            placeholder="Pesquise por nome, cÃ³digo (ex: REC-CTE-001), tag ou termo..."
+                            placeholder="Pesquise por nome, código (ex: REC-CTE-001), tag ou termo..."
                             class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-500 transition text-slate-900 dark:text-white placeholder-slate-400">
                         <button id="clear-search-btn" onclick="clearSearch()"
                             class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
@@ -409,7 +409,7 @@
         <div class="flex min-h-full items-center justify-center p-4">
             <div
                 class="relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-2xl max-w-sm w-full text-center space-y-4 border border-slate-200 dark:border-slate-700">
-                <h3 class="font-bold text-slate-900 dark:text-white text-base">QR Code para ChÃ£o de FÃ¡brica</h3>
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">QR Code para Chão de Fábrica</h3>
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 inline-block mx-auto">
                     <img id="qr-image" src="" alt="QR Code" class="w-48 h-48 mx-auto">
                 </div>
@@ -458,7 +458,7 @@
          * - Remove linhas em branco entre itens sequenciais (notion-to-md Ã s vezes
          *   insere blanks entre itens de uma mesma lista)
          * - Insere separador HTML quando uma nova lista reinicia a partir de 1
-         * - Preserva linhas em branco ao redor de tÃ­tulos (h1â€“h6) e divisores
+         * - Preserva linhas em branco ao redor de títulos (h1—h6) e divisores
          */
         const headingReg = /^(#{1,6})\s+.+$/;
         const dividerReg = /^-{3,}\s*$/;
@@ -476,17 +476,17 @@
                 const line = lines[i];
 
                 if (line.trim() === '' && i + 1 < lines.length) {
-                    // Acha o Ãºltimo item nÃ£o-vazio no resultado
+                    // Acha o último item não-vazio no resultado
                     let lastNonBlank = '';
                     for (let k = result.length - 1; k >= 0; k--) {
                         if (result[k].trim() !== '') { lastNonBlank = result[k]; break; }
                     }
-                    // Acha o prÃ³ximo item nÃ£o-vazio Ã  frente
+                    // Acha o próximo item não-vazio à frente
                     let nextIdx = i + 1;
                     while (nextIdx < lines.length && lines[nextIdx].trim() === '') nextIdx++;
                     const nextLine = nextIdx < lines.length ? lines[nextIdx] : '';
 
-                    // Nunca compacta em torno de tÃ­tulos/divisores para nÃ£o
+                    // Nunca compacta em torno de títulos/divisores para não
                     // prejudicar o parsing do marked/Tailwind prose
                     if (isHeadingOrDivider(lastNonBlank) || isHeadingOrDivider(nextLine)) {
                         result.push(line);
@@ -501,12 +501,12 @@
                         const nextNum = parseInt(nextM[2], 10);
 
                         if (nextNum === prevNum + 1) {
-                            // SequÃªncia contÃ­nua â€” remove a(s) linha(s) em branco
+                            // Sequência contínua — remove a(s) linha(s) em branco
                             i = nextIdx - 1;
                             continue;
                         }
                         if (nextNum === 1 && prevNum > 1) {
-                            // Nova lista reiniciando â€” garante separador visÃ­vel
+                            // Nova lista reiniciando — garante separador visível
                             result.push('');
                             result.push('<!-- list-break -->');
                             result.push('');
@@ -525,11 +525,11 @@
         /**
          * Renderiza markdown do Notion para HTML, preservando callouts, tabelas
          * e garantindo que listas numeradas reiniciem a contagem.
-         * Links contendo ?pop=ID sÃ£o transformados em links internos que abrem
-         * a POP correspondente dentro do portal (sem sair da pÃ¡gina).
+         * Links contendo ?pop=ID são transformados em links internos que abrem
+         * a POP correspondente dentro do portal (sem sair da página).
          */
         function renderNotionMarkdown(mdContent) {
-            const md = normalizeNumberedLists(mdContent || '*Nenhum conteÃºdo encontrado para este processo.*');
+            const md = normalizeNumberedLists(mdContent || '*Nenhum conteúdo encontrado para este processo.*');
             // Debug: descomente a linha abaixo no console do navegador para inspecionar
             // console.log('[renderNotionMarkdown] markdown:', md);
             const rawHtml = marked.parse(md);
@@ -559,7 +559,7 @@
                 renderSopCards();
             } catch (error) {
                 console.error('Erro ao buscar processos:', error);
-                document.getElementById('sops-grid').innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Erro ao carregar processos. Verifique se o servidor estÃ¡ rodando (npm run dev).</div>';
+                document.getElementById('sops-grid').innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Erro ao carregar processos. Verifique se o servidor está rodando (npm run dev).</div>';
             }
         }
 
@@ -644,30 +644,30 @@
             document.getElementById('modal-sub').textContent = sop.subcategoria;
             const responsaveis = Array.isArray(sop.responsavel) && sop.responsavel.length
                 ? sop.responsavel.join(', ')
-                : (sop.responsavel || 'NÃ£o informado');
+                : (sop.responsavel || 'Não informado');
             document.getElementById('modal-resp').textContent = responsaveis;
-            document.getElementById('modal-body').innerHTML = '<div class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-slate-500 text-2xl"></i><p class="text-xs text-slate-500 mt-2">Carregando conteÃºdo...</p></div>';
+            document.getElementById('modal-body').innerHTML = '<div class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-slate-500 text-2xl"></i><p class="text-xs text-slate-500 mt-2">Carregando conteúdo...</p></div>';
             document.getElementById('sop-modal').classList.remove('hidden');
 
             try {
                 const response = await fetch(`/api/sops/${id}/content`);
-                if (!response.ok) throw new Error('Erro ao buscar conteÃºdo');
+                if (!response.ok) throw new Error('Erro ao buscar conteúdo');
                 const data = await response.json();
                 document.getElementById('modal-body').innerHTML = renderNotionMarkdown(data.content);
             } catch (err) {
-                document.getElementById('modal-body').innerHTML = '<div class="text-red-500 text-sm">Erro ao carregar o conteÃºdo do processo.</div>';
+                document.getElementById('modal-body').innerHTML = '<div class="text-red-500 text-sm">Erro ao carregar o conteúdo do processo.</div>';
             }
         }
 
         function closeSopModal() {
             document.getElementById('sop-modal').classList.add('hidden');
-            // Remove o parÃ¢metro ?pop= da URL para nÃ£o reabrir ao dar F5
+            // Remove o parâmetro ?pop= da URL para não reabrir ao dar F5
             const url = new URL(window.location);
             url.searchParams.delete('pop');
             window.history.pushState({}, '', url);
         }
 
-        // Intercepta cliques em links internos (?pop=ID) dentro do conteÃºdo do modal
+        // Intercepta cliques em links internos (?pop=ID) dentro do conteúdo do modal
         document.getElementById('modal-body').addEventListener('click', function (e) {
             const link = e.target.closest('a.internal-pop-link');
             if (!link) return;
@@ -676,7 +676,7 @@
             if (popId) {
                 e.preventDefault();
                 openSopModal(popId); // Abre o novo POP dentro do mesmo modal
-                // Atualiza a URL sem recarregar a pÃ¡gina
+                // Atualiza a URL sem recarregar a página
                 window.history.pushState({}, '', '?pop=' + encodeURIComponent(popId));
             }
         });
@@ -694,3 +694,4 @@
 </body>
 
 </html>
+
