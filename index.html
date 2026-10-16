@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -465,9 +465,31 @@
             // Visual fixo: Windows 98 claro (sem dark mode)
             document.documentElement.classList.remove('dark');
         }
+
+        function toggleDarkMode() {
+            // Visual fixo: sem alternância de tema
         }
 
-        function toggleDarkMode() {\n            // Visual fixo: sem alternância de tema\n        }
+        function handleSearch() {
+            const query = document.getElementById('search-input').value;
+            const clearBtn = document.getElementById('clear-search-btn');
+            if (clearBtn) {
+                if (query.trim().length > 0) {
+                    clearBtn.classList.remove('hidden');
+                } else {
+                    clearBtn.classList.add('hidden');
+                }
+            }
+            applyFilters();
+        }
+
+        function clearSearch() {
+            const searchInput = document.getElementById('search-input');
+            const clearBtn = document.getElementById('clear-search-btn');
+            if (searchInput) searchInput.value = '';
+            if (clearBtn) clearBtn.classList.add('hidden');
+            applyFilters();
+        }
 
         function populateFilterDropdowns() {
             const macroSelect = document.getElementById('filter-macro');
