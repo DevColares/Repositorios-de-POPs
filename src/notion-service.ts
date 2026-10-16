@@ -99,9 +99,55 @@ export async function getProcessContent(pageId: string): Promise<string> {
   try {
     const mdblocks = await n2m.pageToMarkdown(pageId, 2);
     const mdString = n2m.toMarkdownString(mdblocks);
-    return mdString.parent || '';
+    const raw = mdString.parent || '';
+    return renumberLists(raw);
   } catch (error) {
     console.error('Erro ao buscar conteúdo da página:', error);
     return '';
   }
+}
+
+/**
+ * Corrige a numeração de listas ordenadas no markdown gerado pelo notion-to-md.
+ *
+ * O notion-to-md frequentemente converte todos os "numbered_list_item" do Notion
+ * como "1." independente da posição — o número correto é dinâmico no Notion e
+ * não está armazenado no bloco. Esta função reescreve os números em sequência
+ * por nível de indentação, resetando o contador apenas quando um título (heading)
+ * ou divisor (---) aparecer, que são os únicos elementos que genuinamente separam
+ * listas distintas no Notion.
+ */
+function renumberLists(md: string): string {
+  const lines = md.split('\n');
+  const out: string[] = [];
+  // Mapeia indentação (nº de espaços) → contador atual
+  const counters = new Map<number, number>();
+
+  for (const line of lines) {
+    // Linha de item numerado: captura indentação, número antigo e texto
+    const m = line.match(/^( *)(\d+)\. ([\s\S]*)/);
+    if (m) {
+      const indent = m[1].length;
+      const text  = m[3];
+
+      // Remove contadores de níveis mais profundos (saiu de sub-lista)
+      counters.forEach((_, k) => { if (k > indent) counters.delete(k); });
+
+      const count = (counters.get(indent) ?? 0) + 1;
+      counters.set(indent, count);
+      out.push(`${m[1]}${count}. ${text}`);
+
+    } else if (/^#{1,6} /.test(line) || /^-{3,}$/.test(line)) {
+      // Título ou divisor → inicia nova seção → reseta todos os contadores
+      counters.clear();
+      out.push(line);
+
+    } else {
+      // Parágrafo, callout, tabela etc. não resetam a lista — podem ser
+      // conteúdo "dentro" de um item (notion-to-md os coloca no mesmo nível)
+      out.push(line);
+    }
+  }
+
+  return out.join('\n');
 }
