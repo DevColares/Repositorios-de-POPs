@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Processos & SOPs - Almoxarifado / Logística</title>
+    <title>Portal de Processos & SOPs - Almoxarifado / LogÃ­stica</title>
     <!-- Tailwind CSS CDN + Typography plugin: carregamos ambos e registramos
          o plugin explicitamente para garantir que as classes .prose funcionem -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -17,12 +17,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            700: '#075985',
-                            800: '#0c4a6e',
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
                             900: '#0f172a',
                         }
                     }
@@ -103,16 +103,16 @@
 
         /* Estilos para callouts vindos do Notion (convertidos para blockquote) */
         .notion-callout {
-            border-left: 4px solid #0ea5e9;
-            background-color: #f0f9ff;
+            border-left: 4px solid #94a3b8;
+            background-color: #f8fafc;
             padding: 1rem;
             border-radius: 0.5rem;
             margin: 1rem 0;
         }
 
         .dark .notion-callout {
-            background-color: rgba(14, 165, 233, 0.15);
-            border-left-color: #38bdf8;
+            background-color: rgba(30, 41, 59, 0.15);
+            border-left-color: #64748b;
         }
 
         .notion-callout p {
@@ -120,7 +120,7 @@
         }
 
         /* Listas numeradas: deixa o browser e o Tailwind prose gerenciarem a
-           numeração nativamente — respeita o atributo HTML start= */
+           numeraÃ§Ã£o nativamente â€” respeita o atributo HTML start= */
         .prose ol {
             list-style-type: decimal;
         }
@@ -131,9 +131,9 @@
             margin-bottom: 0.25rem;
         }
 
-        /* Fallback explícito para títulos gerados pelo markdown do Notion:
-           garante que h1–h6 tenham peso, tamanho e cor diferenciados mesmo se
-           o plugin Typography não carregar corretamente. */
+        /* Fallback explÃ­cito para tÃ­tulos gerados pelo markdown do Notion:
+           garante que h1â€“h6 tenham peso, tamanho e cor diferenciados mesmo se
+           o plugin Typography nÃ£o carregar corretamente. */
         .prose h1,
         .prose h2,
         .prose h3,
@@ -180,7 +180,7 @@
             font-size: 0.875rem;
         }
 
-        /* O primeiro título do conteúdo não precisa de margem superior grande */
+        /* O primeiro tÃ­tulo do conteÃºdo nÃ£o precisa de margem superior grande */
         .prose>h1:first-child,
         .prose>h2:first-child,
         .prose>h3:first-child,
@@ -200,7 +200,7 @@
             <div class="flex items-center justify-between h-16">
                 <!-- Logo & Portal Title -->
                 <div class="flex items-center space-x-3">
-                    <div class="bg-brand-600 text-white p-2.5 rounded-xl shadow-md flex items-center justify-center">
+                    <div class="bg-slate-700 text-white p-2.5 rounded-xl shadow-md flex items-center justify-center">
                         <i class="fa-solid fa-boxes-packing text-xl"></i>
                     </div>
                     <div>
@@ -208,7 +208,7 @@
                             class="font-bold text-lg leading-snug text-slate-900 dark:text-white flex items-center gap-2">
                             Portal de SOPs
                         </h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Almoxarifado & Logística Operacional
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Almoxarifado & LogÃ­stica Operacional
                             Integrada</p>
                     </div>
                 </div>
@@ -218,8 +218,8 @@
                     <!-- Tab Switcher -->
                     <nav class="flex bg-slate-100 dark:bg-slate-700/60 p-1 rounded-xl text-xs font-medium">
                         <button id="nav-catalog-btn"
-                            class="px-3 py-1.5 rounded-lg text-brand-700 dark:text-brand-300 bg-white dark:bg-slate-800 shadow-sm transition-all flex items-center gap-1.5 font-semibold">
-                            <i class="fa-solid fa-book-open"></i> <span class="hidden sm:inline">Catálogo</span>
+                            class="px-3 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 shadow-sm transition-all flex items-center gap-1.5 font-semibold">
+                            <i class="fa-solid fa-book-open"></i> <span class="hidden sm:inline">CatÃ¡logo</span>
                         </button>
                     </nav>
 
@@ -250,8 +250,8 @@
                             <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
                         </div>
                         <input type="text" id="search-input" oninput="handleSearch()"
-                            placeholder="Pesquise por nome, código (ex: REC-CTE-001), tag ou termo..."
-                            class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition text-slate-900 dark:text-white placeholder-slate-400">
+                            placeholder="Pesquise por nome, cÃ³digo (ex: REC-CTE-001), tag ou termo..."
+                            class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-500 transition text-slate-900 dark:text-white placeholder-slate-400">
                         <button id="clear-search-btn" onclick="clearSearch()"
                             class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
                             <i class="fa-solid fa-circle-xmark"></i>
@@ -265,7 +265,7 @@
 
                         <div
                             class="bg-slate-100 dark:bg-slate-700/50 px-3 py-2 rounded-xl flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
-                            <i class="fa-solid fa-file-lines text-brand-600 dark:text-brand-400"></i>
+                            <i class="fa-solid fa-file-lines text-slate-600 dark:text-slate-400"></i>
                             <span>Processos: <strong id="sop-count"
                                     class="text-slate-900 dark:text-white font-bold">0</strong></span>
                         </div>
@@ -280,7 +280,7 @@
                         <label
                             class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Setor</label>
                         <select id="filter-macro" onchange="applyFilters()"
-                            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500">
                             <option value="">Todos os Setores</option>
                         </select>
                     </div>
@@ -290,7 +290,7 @@
                         <label
                             class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Categoria</label>
                         <select id="filter-sub" onchange="applyFilters()"
-                            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500">
                             <option value="">Todas as Categorias</option>
                         </select>
                     </div>
@@ -335,7 +335,7 @@
                     class="sticky top-0 z-10 bg-white/95 dark:bg-slate-800/95 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex flex-wrap items-center justify-between gap-3">
                     <div class="flex items-center space-x-3">
                         <span id="modal-code-badge"
-                            class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-brand-100 dark:bg-brand-900/80 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-700">CODE-000</span>
+                            class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">CODE-000</span>
                         <span id="modal-status-badge"
                             class="text-xs px-2.5 py-1 rounded-lg font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Ativo</span>
                     </div>
@@ -369,7 +369,7 @@
                             <span
                                 class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i
                                     class="fa-solid fa-layer-group text-slate-400"></i> <span
-                                    id="modal-macro">Área</span></span>
+                                    id="modal-macro">Ãrea</span></span>
                             <span
                                 class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i
                                     class="fa-solid fa-folder text-slate-400"></i> <span
@@ -409,15 +409,15 @@
         <div class="flex min-h-full items-center justify-center p-4">
             <div
                 class="relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-2xl max-w-sm w-full text-center space-y-4 border border-slate-200 dark:border-slate-700">
-                <h3 class="font-bold text-slate-900 dark:text-white text-base">QR Code para Chão de Fábrica</h3>
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">QR Code para ChÃ£o de FÃ¡brica</h3>
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 inline-block mx-auto">
                     <img id="qr-image" src="" alt="QR Code" class="w-48 h-48 mx-auto">
                 </div>
-                <div class="text-xs font-mono font-bold text-brand-600 dark:text-brand-400" id="qr-code-label">
+                <div class="text-xs font-mono font-bold text-slate-600 dark:text-slate-400" id="qr-code-label">
                     REC-CTE-001</div>
                 <div class="pt-2 flex justify-center gap-2">
                     <button onclick="printCurrentSop()"
-                        class="px-4 py-2 bg-brand-600 text-white text-xs font-semibold rounded-xl transition"><i
+                        class="px-4 py-2 bg-slate-600 text-white text-xs font-semibold rounded-xl transition"><i
                             class="fa-solid fa-print"></i> Imprimir Placa</button>
                     <button onclick="closeQrModal()"
                         class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition">Voltar</button>
@@ -455,10 +455,10 @@
          */
         /**
          * Normaliza listas numeradas vindas do notion-to-md:
-         * - Remove linhas em branco entre itens sequenciais (notion-to-md às vezes
+         * - Remove linhas em branco entre itens sequenciais (notion-to-md Ã s vezes
          *   insere blanks entre itens de uma mesma lista)
          * - Insere separador HTML quando uma nova lista reinicia a partir de 1
-         * - Preserva linhas em branco ao redor de títulos (h1–h6) e divisores
+         * - Preserva linhas em branco ao redor de tÃ­tulos (h1â€“h6) e divisores
          */
         const headingReg = /^(#{1,6})\s+.+$/;
         const dividerReg = /^-{3,}\s*$/;
@@ -476,17 +476,17 @@
                 const line = lines[i];
 
                 if (line.trim() === '' && i + 1 < lines.length) {
-                    // Acha o último item não-vazio no resultado
+                    // Acha o Ãºltimo item nÃ£o-vazio no resultado
                     let lastNonBlank = '';
                     for (let k = result.length - 1; k >= 0; k--) {
                         if (result[k].trim() !== '') { lastNonBlank = result[k]; break; }
                     }
-                    // Acha o próximo item não-vazio à frente
+                    // Acha o prÃ³ximo item nÃ£o-vazio Ã  frente
                     let nextIdx = i + 1;
                     while (nextIdx < lines.length && lines[nextIdx].trim() === '') nextIdx++;
                     const nextLine = nextIdx < lines.length ? lines[nextIdx] : '';
 
-                    // Nunca compacta em torno de títulos/divisores para não
+                    // Nunca compacta em torno de tÃ­tulos/divisores para nÃ£o
                     // prejudicar o parsing do marked/Tailwind prose
                     if (isHeadingOrDivider(lastNonBlank) || isHeadingOrDivider(nextLine)) {
                         result.push(line);
@@ -501,12 +501,12 @@
                         const nextNum = parseInt(nextM[2], 10);
 
                         if (nextNum === prevNum + 1) {
-                            // Sequência contínua — remove a(s) linha(s) em branco
+                            // SequÃªncia contÃ­nua â€” remove a(s) linha(s) em branco
                             i = nextIdx - 1;
                             continue;
                         }
                         if (nextNum === 1 && prevNum > 1) {
-                            // Nova lista reiniciando — garante separador visível
+                            // Nova lista reiniciando â€” garante separador visÃ­vel
                             result.push('');
                             result.push('<!-- list-break -->');
                             result.push('');
@@ -525,11 +525,11 @@
         /**
          * Renderiza markdown do Notion para HTML, preservando callouts, tabelas
          * e garantindo que listas numeradas reiniciem a contagem.
-         * Links contendo ?pop=ID são transformados em links internos que abrem
-         * a POP correspondente dentro do portal (sem sair da página).
+         * Links contendo ?pop=ID sÃ£o transformados em links internos que abrem
+         * a POP correspondente dentro do portal (sem sair da pÃ¡gina).
          */
         function renderNotionMarkdown(mdContent) {
-            const md = normalizeNumberedLists(mdContent || '*Nenhum conteúdo encontrado para este processo.*');
+            const md = normalizeNumberedLists(mdContent || '*Nenhum conteÃºdo encontrado para este processo.*');
             // Debug: descomente a linha abaixo no console do navegador para inspecionar
             // console.log('[renderNotionMarkdown] markdown:', md);
             const rawHtml = marked.parse(md);
@@ -559,7 +559,7 @@
                 renderSopCards();
             } catch (error) {
                 console.error('Erro ao buscar processos:', error);
-                document.getElementById('sops-grid').innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Erro ao carregar processos. Verifique se o servidor está rodando (npm run dev).</div>';
+                document.getElementById('sops-grid').innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Erro ao carregar processos. Verifique se o servidor estÃ¡ rodando (npm run dev).</div>';
             }
         }
 
@@ -621,13 +621,13 @@
 
             document.getElementById('empty-state').classList.add('hidden');
             container.innerHTML = filteredSops.map(sop => `
-                <div onclick="openSopModal('${sop.id}')" class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow-md hover:border-brand-500 transition cursor-pointer flex flex-col justify-between group">
+                <div onclick="openSopModal('${sop.id}')" class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow-md hover:border-slate-500 transition cursor-pointer flex flex-col justify-between group">
                     <div class="space-y-3">
                         <div class="flex items-center justify-between text-xs">
-                            <span class="font-mono font-bold px-2 py-0.5 rounded bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800">${sop.codigo}</span>
+                            <span class="font-mono font-bold px-2 py-0.5 rounded bg-slate-50 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">${sop.codigo}</span>
                             <span class="text-slate-400 text-xs">${sop.lastEdited}</span>
                         </div>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base group-hover:text-brand-600 transition">${sop.titulo}</h3>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-base group-hover:text-slate-600 transition">${sop.titulo}</h3>
                         <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">${sop.objetivo}</p>
                     </div>
                 </div>
@@ -644,30 +644,30 @@
             document.getElementById('modal-sub').textContent = sop.subcategoria;
             const responsaveis = Array.isArray(sop.responsavel) && sop.responsavel.length
                 ? sop.responsavel.join(', ')
-                : (sop.responsavel || 'Não informado');
+                : (sop.responsavel || 'NÃ£o informado');
             document.getElementById('modal-resp').textContent = responsaveis;
-            document.getElementById('modal-body').innerHTML = '<div class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-brand-500 text-2xl"></i><p class="text-xs text-slate-500 mt-2">Carregando conteúdo...</p></div>';
+            document.getElementById('modal-body').innerHTML = '<div class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-slate-500 text-2xl"></i><p class="text-xs text-slate-500 mt-2">Carregando conteÃºdo...</p></div>';
             document.getElementById('sop-modal').classList.remove('hidden');
 
             try {
                 const response = await fetch(`/api/sops/${id}/content`);
-                if (!response.ok) throw new Error('Erro ao buscar conteúdo');
+                if (!response.ok) throw new Error('Erro ao buscar conteÃºdo');
                 const data = await response.json();
                 document.getElementById('modal-body').innerHTML = renderNotionMarkdown(data.content);
             } catch (err) {
-                document.getElementById('modal-body').innerHTML = '<div class="text-red-500 text-sm">Erro ao carregar o conteúdo do processo.</div>';
+                document.getElementById('modal-body').innerHTML = '<div class="text-red-500 text-sm">Erro ao carregar o conteÃºdo do processo.</div>';
             }
         }
 
         function closeSopModal() {
             document.getElementById('sop-modal').classList.add('hidden');
-            // Remove o parâmetro ?pop= da URL para não reabrir ao dar F5
+            // Remove o parÃ¢metro ?pop= da URL para nÃ£o reabrir ao dar F5
             const url = new URL(window.location);
             url.searchParams.delete('pop');
             window.history.pushState({}, '', url);
         }
 
-        // Intercepta cliques em links internos (?pop=ID) dentro do conteúdo do modal
+        // Intercepta cliques em links internos (?pop=ID) dentro do conteÃºdo do modal
         document.getElementById('modal-body').addEventListener('click', function (e) {
             const link = e.target.closest('a.internal-pop-link');
             if (!link) return;
@@ -676,7 +676,7 @@
             if (popId) {
                 e.preventDefault();
                 openSopModal(popId); // Abre o novo POP dentro do mesmo modal
-                // Atualiza a URL sem recarregar a página
+                // Atualiza a URL sem recarregar a pÃ¡gina
                 window.history.pushState({}, '', '?pop=' + encodeURIComponent(popId));
             }
         });
