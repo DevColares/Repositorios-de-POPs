@@ -9,6 +9,8 @@
          o plugin explicitamente para garantir que as classes .prose funcionem -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script src="https://unpkg.com/@tailwindcss/typography@0.5.15/dist/typography.min.js"></script>
+    <!-- 98.css - Visual Retro Windows 98 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/98.css@0.3.4/dist/98.min.css">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -16,14 +18,16 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            500: '#64748b',
-                            600: '#475569',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
+                        gray: {
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                        },
+                        green: {
+                            500: '#22c55e',
+                            600: '#16a34a',
                         }
                     }
                 }
@@ -39,176 +43,87 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+    body {
+        font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+        font-size: 12px;
+    }
 
-        /* Custom scrollbar for clean operational layout */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
+    /* Scrollbars estilo Windows 98 */
+    ::-webkit-scrollbar {
+        width: 16px;
+        height: 16px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #c0c0c0;
+        border: 2px outset #c0c0c0;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #c0c0c0;
+        border: 2px outset #ffffff;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #c0c0c0;
+        border: 2px inset #808080;
+    }
 
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
+    /* Callouts do Notion estilo Windows 98 */
+    .notion-callout {
+        border: 2px inset #c0c0c0;
+        background-color: #c0c0c0;
+        padding: 1rem;
+        margin: 1rem 0;
+        font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+    }
+    .notion-callout p {
+        margin: 0;
+        color: #000000;
+    }
 
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 9999px;
-        }
+    /* Títulos prose sem rounded moderno */
+    .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+        font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+        font-weight: bold;
+        color: #000000;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+    }
 
-        .dark ::-webkit-scrollbar-thumb {
-            background: #334155;
-        }
+    .prose h1 { font-size: 1.5rem; }
+    .prose h2 { font-size: 1.25rem; }
+    .prose h3 { font-size: 1.125rem; }
 
-        @media print {
-            .no-print {
-                display: none !important;
-            }
+    /* Forçar fundo claro - sem dark mode visual */
+    :root {
+        color-scheme: light;
+    }
 
-            .print-only {
-                display: block !important;
-            }
-
-            body {
-                background: white !important;
-                color: black !important;
-            }
-
-            .print-container {
-                width: 100% !important;
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                box-shadow: none !important;
-            }
-        }
-
-        @keyframes pulse-subtle {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.6;
-            }
-        }
-
-        .animate-pulse-subtle {
-            animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        /* Estilos para callouts vindos do Notion (convertidos para blockquote) */
-        .notion-callout {
-            border-left: 4px solid #94a3b8;
-            background-color: #f8fafc;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .dark .notion-callout {
-            background-color: rgba(30, 41, 59, 0.15);
-            border-left-color: #64748b;
-        }
-
-        .notion-callout p {
-            margin: 0;
-        }
-
-        /* Listas numeradas: deixa o browser e o Tailwind prose gerenciarem a
-           numeração nativamente — respeita o atributo HTML start= */
-        .prose ol {
-            list-style-type: decimal;
-        }
-
-        .prose ol>li,
-        .prose ul>li {
-            margin-top: 0.25rem;
-            margin-bottom: 0.25rem;
-        }
-
-        /* Fallback explícito para títulos gerados pelo markdown do Notion:
-           garante que h1—h6 tenham peso, tamanho e cor diferenciados mesmo se
-           o plugin Typography não carregar corretamente. */
-        .prose h1,
-        .prose h2,
-        .prose h3,
-        .prose h4,
-        .prose h5,
-        .prose h6 {
-            font-weight: 700;
-            line-height: 1.25;
-            color: #0f172a;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-        }
-
-        .dark .prose h1,
-        .dark .prose h2,
-        .dark .prose h3,
-        .dark .prose h4,
-        .dark .prose h5,
-        .dark .prose h6 {
-            color: #f8fafc;
-        }
-
-        .prose h1 {
-            font-size: 1.75rem;
-        }
-
-        .prose h2 {
-            font-size: 1.5rem;
-        }
-
-        .prose h3 {
-            font-size: 1.25rem;
-        }
-
-        .prose h4 {
-            font-size: 1.125rem;
-        }
-
-        .prose h5 {
-            font-size: 1rem;
-        }
-
-        .prose h6 {
-            font-size: 0.875rem;
-        }
-
-        /* O primeiro título do conteúdo não precisa de margem superior grande */
-        .prose>h1:first-child,
-        .prose>h2:first-child,
-        .prose>h3:first-child,
-        .prose>h4:first-child {
-            margin-top: 0;
-        }
-    </style>
+    /* Utilitários retro rápidos */
+    .btn-retro {
+        font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+        font-size: 12px;
+    }
+</style>
 </head>
 
 <body
-    class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+    class="bg-[#c0c0c0] text-black min-h-screen flex flex-col" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
 
     <!-- TOP HEADER NAVBAR -->
     <header
-        class="no-print bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 shadow-sm">
+        class="no-print bg-[#c0c0c0] border-b-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
+            <div class="flex items-center justify-between h-12">
                 <!-- Logo & Portal Title -->
                 <div class="flex items-center space-x-3">
-                    <div class="bg-slate-700 text-white p-2.5 rounded-xl shadow-md flex items-center justify-center">
+                    <div class="bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-1.5 flex items-center justify-center">
                         <i class="fa-solid fa-boxes-packing text-xl"></i>
                     </div>
                     <div>
                         <h1
-                            class="font-bold text-lg leading-snug text-slate-900 dark:text-white flex items-center gap-2">
+                            class="font-bold text-sm text-black leading-snug" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
                             Portal de SOPs
                         </h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Almoxarifado & Logística Operacional
+                        <p class="text-[10px] text-black" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">Almoxarifado & Logística Operacional
                             Integrada</p>
                     </div>
                 </div>
@@ -216,18 +131,14 @@
                 <!-- Right Header Actions -->
                 <div class="flex items-center space-x-2 sm:space-x-4">
                     <!-- Tab Switcher -->
-                    <nav class="flex bg-slate-100 dark:bg-slate-700/60 p-1 rounded-xl text-xs font-medium">
+                    <nav class="flex bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-0.5 text-[10px] font-medium" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
                         <button id="nav-catalog-btn"
-                            class="px-3 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 shadow-sm transition-all flex items-center gap-1.5 font-semibold">
+                            class="px-2 py-1 text-black bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 flex items-center gap-1 font-semibold" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
                             <i class="fa-solid fa-book-open"></i> <span class="hidden sm:inline">Catálogo</span>
                         </button>
                     </nav>
 
-                    <!-- Dark Mode Toggle -->
-                    <button onclick="toggleDarkMode()" title="Alternar Modo Escuro/Claro"
-                        class="p-2.5 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition">
-                        <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
-                    </button>
+
                 </div>
             </div>
         </div>
@@ -241,46 +152,46 @@
 
             <!-- SEARCH, ACTION BAR AND AI BUTTON -->
             <div
-                class="bg-white dark:bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                class="bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-4 sm:p-5 space-y-4" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;">
                 <div class="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
                     <!-- Search Input Box -->
                     <div class="relative flex-grow">
                         <div
-                            class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                            <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
+                            class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                            <i class="fa-solid fa-magnifying-glass text-black"></i>
                         </div>
                         <input type="text" id="search-input" oninput="handleSearch()"
                             placeholder="Pesquise por nome, código (ex: REC-CTE-001), tag ou termo..."
-                            class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-500 transition text-slate-900 dark:text-white placeholder-slate-400">
+                            class="w-full pl-10 pr-10 py-3 bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 text-sm text-black focus:outline-none" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
                         <button id="clear-search-btn" onclick="clearSearch()"
-                            class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                            class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-black" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;">
                             <i class="fa-solid fa-circle-xmark"></i>
                         </button>
                     </div>
 
                     <!-- Quick AI Generator Action & Count -->
                     <div
-                        class="flex items-center justify-between sm:justify-end gap-3 border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 dark:border-slate-700">
+                        class="flex items-center justify-between sm:justify-end gap-3 border-t md:border-t-0 pt-3 md:pt-0 border-gray-100\">
 
 
                         <div
-                            class="bg-slate-100 dark:bg-slate-700/50 px-3 py-2 rounded-xl flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
-                            <i class="fa-solid fa-file-lines text-slate-600 dark:text-slate-400"></i>
+                            class="bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 px-3 py-2 flex items-center gap-2 text-xs text-black" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;">
+                            <i class="fa-solid fa-file-lines text-gray-600\"></i>
                             <span>Processos: <strong id="sop-count"
-                                    class="text-slate-900 dark:text-white font-bold">0</strong></span>
+                                    class="text-black font-bold" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;">0</strong></span>
                         </div>
                     </div>
                 </div>
 
                 <!-- FILTER DROPDOWNS -->
                 <div
-                    class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-100 dark:border-slate-700/60">
+                    class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-gray-100\">
                     <!-- Setor Filter -->
                     <div>
                         <label
-                            class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Setor</label>
+                            class="block text-xs font-semibold uppercase tracking-wider text-black mb-1" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;>Setor</label>
                         <select id="filter-macro" onchange="applyFilters()"
-                            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500">
+                            class="w-full bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 text-xs p-2 text-black" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;>
                             <option value="">Todos os Setores</option>
                         </select>
                     </div>
@@ -288,9 +199,9 @@
                     <!-- Categoria Filter -->
                     <div>
                         <label
-                            class="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Categoria</label>
+                            class="block text-xs font-semibold uppercase tracking-wider text-black mb-1" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;>Categoria</label>
                         <select id="filter-sub" onchange="applyFilters()"
-                            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs rounded-xl p-2.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500">
+                            class="w-full bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 text-xs p-2 text-black" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;>
                             <option value="">Todas as Categorias</option>
                         </select>
                     </div>
@@ -304,17 +215,17 @@
 
             <!-- EMPTY STATE -->
             <div id="empty-state"
-                class="hidden text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 p-8">
+                class="hidden text-center py-16 bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-8">
                 <div
-                    class="w-16 h-16 bg-slate-100 dark:bg-slate-700 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                    class="w-16 h-16 bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 text-black rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                     <i class="fa-solid fa-folder-open"></i>
                 </div>
-                <h3 class="font-bold text-slate-800 dark:text-slate-200 text-base">Nenhum processo encontrado</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">Tente ajustar seus termos de
+                <h3 class="font-bold text-black text-base" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;">Nenhum processo encontrado</h3>
+                <p class="text-xs text-black mt-1 max-w-sm mx-auto" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;">Tente ajustar seus termos de
                     busca.</p>
                 <div class="mt-4 flex justify-center gap-3">
                     <button onclick="resetFilters()"
-                        class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold rounded-xl transition">
+                        class="px-4 py-2 bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 text-black text-xs font-semibold" style="font-family: Tahoma, ""MS Sans Serif"", sans-serif;">
                         Limpar Filtros
                     </button>
                 </div>
@@ -323,104 +234,91 @@
 
     </main>
 
-    <!-- SOP DETAIL MODAL / DRAWER -->
+        <!-- SOP DETAIL WINDOW (Windows 98 style) -->
     <div id="sop-modal" class="fixed inset-0 z-50 hidden overflow-y-auto no-print" aria-modal="true">
-        <div onclick="closeSopModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
-        <div class="flex min-h-full items-center justify-center p-3 sm:p-6">
-            <div
-                class="relative transform overflow-hidden rounded-2xl bg-white dark:bg-slate-800 text-left shadow-2xl transition-all w-full max-w-4xl border border-slate-200 dark:border-slate-700 my-8">
-
-                <!-- Modal Header Bar -->
-                <div
-                    class="sticky top-0 z-10 bg-white/95 dark:bg-slate-800/95 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex flex-wrap items-center justify-between gap-3">
-                    <div class="flex items-center space-x-3">
-                        <span id="modal-code-badge"
-                            class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">CODE-000</span>
-                        <span id="modal-status-badge"
-                            class="text-xs px-2.5 py-1 rounded-lg font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Ativo</span>
+        <div onclick="closeSopModal()" class="fixed inset-0 bg-[#808080]/40"></div>
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="window" style="width: 700px; height: 520px; position: relative;">
+                <div class="title-bar" style="background: linear-gradient(90deg, #000080 0%, #101080 100%); color: white;">
+                    <div class="title-bar-text" style="font-family: Tahoma, 'MS Sans Serif', sans-serif; font-weight: bold; font-size: 13px;">
+                        <i class="fa-solid fa-file" style="margin-right: 4px;"></i><span id="modal-title-win">POP - Processo</span>
                     </div>
-
-                    <div class="flex flex-wrap items-center gap-2">
-
-                        <button onclick="printCurrentSop()" title="Imprimir"
-                            class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"><i
-                                class="fa-solid fa-print"></i></button>
-                        <button onclick="copySopLink()" title="Copiar Link"
-                            class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"><i
-                                class="fa-solid fa-link"></i></button>
-                        <button onclick="openQrModal()" title="QR Code"
-                            class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"><i
-                                class="fa-solid fa-qrcode"></i></button>
-                        <div class="h-4 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
-                        <button onclick="closeSopModal()"
-                            class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition text-lg"><i
-                                class="fa-solid fa-xmark"></i></button>
+                    <div class="title-bar-controls">
+                        <button class="icon-button" onclick="minimizeWin()">_</button>
+                        <button class="icon-button" onclick="maximizeWin()">□</button>
+                        <button class="icon-button" onclick="closeSopModal()" style="color: #ff0000; font-weight: bold;">×</button>
                     </div>
                 </div>
-
-
-
-                <!-- Modal Body Content -->
-                <div class="p-6 sm:p-8 space-y-6 max-h-[80vh] overflow-y-auto">
-                    <div>
-                        <h2 id="modal-title" class="text-2xl font-bold text-slate-900 dark:text-white">Nome do Processo
-                        </h2>
-                        <div class="flex flex-wrap gap-2 mt-3 text-xs text-slate-600 dark:text-slate-300">
-                            <span
-                                class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i
-                                    class="fa-solid fa-layer-group text-slate-400"></i> <span
-                                    id="modal-macro">Ãrea</span></span>
-                            <span
-                                class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i
-                                    class="fa-solid fa-folder text-slate-400"></i> <span
-                                    id="modal-sub">Subcategoria</span></span>
-                            <span
-                                class="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg font-medium"><i
-                                    class="fa-solid fa-user-gear text-slate-400"></i> Executante: <span id="modal-resp"
-                                    class="font-semibold text-slate-800 dark:text-slate-200">Cargo</span></span>
+                <div class="window-body" style="overflow-y: auto; height: calc(100% - 30px); padding: 0;">
+                    <!-- Informações do processo -->
+                    <div style="padding: 8px 12px; border-bottom: 2px outset #c0c0c0; background: #c0c0c0;">
+                        <div class="flex flex-wrap items-center gap-3 text-xs" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
+                            <span id="modal-code-badge" class="font-mono font-bold text-black border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 px-2 py-1 bg-[#c0c0c0]">CODE-000</span>
+                            <span id="modal-status-badge" class="px-2 py-1 bg-[#000080] text-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 font-bold">Ativo</span>
+                            <div class="flex items-center gap-2 ml-auto">
+                                <button onclick="printCurrentSop()" class="button btn-retro" style="font-size: 11px; padding: 2px 8px;"><i class="fa-solid fa-print" style="margin-right: 3px;"></i>Imprimir</button>
+                                <button onclick="copySopLink()" class="button btn-retro" style="font-size: 11px; padding: 2px 8px;"><i class="fa-solid fa-link" style="margin-right: 3px;"></i>Link</button>
+                                <button onclick="openQrModal()" class="button btn-retro" style="font-size: 11px; padding: 2px 8px;"><i class="fa-solid fa-qrcode" style="margin-right: 3px;"></i>QR</button>
+                                <button onclick="closeSopModal()" class="button btn-retro" style="font-size: 11px; padding: 2px 8px; background: #ff0000; color: white; border-color: #ff0000;">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dados rápidos -->
+                    <div style="padding: 8px 12px; background: #ffffff;">
+                        <div class="flex flex-wrap items-center gap-4 text-xs" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
+                            <span class="inline-flex items-center gap-2 px-2 py-1 bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 font-bold">
+                                <i class="fa-solid fa-layer-group" style="color: #808080;"></i> <span id="modal-macro-win">Área</span>
+                            </span>
+                            <span class="inline-flex items-center gap-2 px-2 py-1 bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 font-bold">
+                                <i class="fa-solid fa-folder" style="color: #808080;"></i> <span id="modal-sub-win">Subcategoria</span>
+                            </span>
+                            <span class="inline-flex items-center gap-2 px-2 py-1 bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 font-bold">
+                                <i class="fa-solid fa-user-gear" style="color: #808080;"></i> <span id="modal-resp-win">Responsável</span>
+                            </span>
                         </div>
                     </div>
 
-                    <div id="modal-tags"
-                        class="flex flex-wrap gap-1.5 pt-1 border-t border-slate-100 dark:border-slate-700/60"></div>
-
-
-
-                    <div id="modal-body"
-                        class="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-sm space-y-4 pt-2">
+                    <!-- Conteúdo do SOP -->
+                    <div id="modal-body-win" style="padding: 12px; font-family: Tahoma, 'MS Sans Serif', sans-serif; font-size: 13px; overflow-y: auto; height: calc(100% - 90px);">
+                        <div class="text-center py-10" style="color: #000000;">
+                            <i class="fa-solid fa-spinner fa-spin text-2xl" style="color: #808080;"></i>
+                            <div style="margin-top: 8px; font-weight: bold;">Carregando conteúdo...</div>
+                        </div>
                     </div>
                 </div>
-
-                <div
-                    class="bg-slate-50 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-700 px-6 py-3 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                    <span>SOP Atualizado via Notion em <strong id="modal-date">08/10/2026</strong></span>
-                    <button onclick="closeSopModal()"
-                        class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold rounded-xl transition">Fechar</button>
+                <div style="border-top: 2px outset #c0c0c0; background: #c0c0c0; padding: 4px 10px; font-family: Tahoma, 'MS Sans Serif', sans-serif; font-size: 11px; color: #000000; display: flex; justify-content: space-between; align-items: center;">
+                    <span>SOP Atualizado via Notion em <strong id="modal-date-win">08/10/2026</strong></span>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-    <!-- QR CODE GENERATOR MODAL -->
+<!-- QR CODE GENERATOR MODAL -->
     <div id="qr-modal" class="fixed inset-0 z-50 hidden overflow-y-auto no-print" aria-modal="true">
-        <div onclick="closeQrModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div onclick="closeQrModal()" class="fixed inset-0 bg-gray-950/60 backdrop-blur-sm"></div>
         <div class="flex min-h-full items-center justify-center p-4">
             <div
-                class="relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-2xl max-w-sm w-full text-center space-y-4 border border-slate-200 dark:border-slate-700">
-                <h3 class="font-bold text-slate-900 dark:text-white text-base">QR Code para Chão de Fábrica</h3>
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 inline-block mx-auto">
+                class="window" style="width: 320px; position: relative;">
+                <div class="title-bar" style="background: linear-gradient(90deg, #000080 0%, #101080 100%); color: white;">
+                    <div class="title-bar-text" style="font-family: Tahoma, 'MS Sans Serif', sans-serif; font-weight: bold; font-size: 13px;">
+                        QR Code para Chão de Fábrica
+                    </div>
+                    <div class="title-bar-controls">
+                        <button class="icon-button" onclick="closeQrModal()" style="color: #ff0000; font-weight: bold;">×</button>
+                    </div>
+                </div>
+                <div class="window-body" style="padding: 12px; font-family: Tahoma, 'MS Sans Serif', sans-serif; font-size: 13px; text-align: center;">
+                    <div class="bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-4 inline-block mx-auto my-4">
                     <img id="qr-image" src="" alt="QR Code" class="w-48 h-48 mx-auto">
                 </div>
-                <div class="text-xs font-mono font-bold text-slate-600 dark:text-slate-400" id="qr-code-label">
+                <div class="text-xs font-mono font-bold text-black" id="qr-code-label" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
                     REC-CTE-001</div>
                 <div class="pt-2 flex justify-center gap-2">
                     <button onclick="printCurrentSop()"
-                        class="px-4 py-2 bg-slate-600 text-white text-xs font-semibold rounded-xl transition"><i
+                        class="px-4 py-2 bg-[#ff0000] text-white text-xs font-semibold border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;"><i
                             class="fa-solid fa-print"></i> Imprimir Placa</button>
                     <button onclick="closeQrModal()"
-                        class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition">Voltar</button>
+                        class="px-4 py-2 bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 text-black text-xs font-semibold" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">Voltar</button>
                 </div>
             </div>
         </div>
@@ -564,17 +462,12 @@
         }
 
         function initTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
+            // Visual fixo: Windows 98 claro (sem dark mode)
+            document.documentElement.classList.remove('dark');
+        }
         }
 
-        function toggleDarkMode() {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.theme = isDark ? 'dark' : 'light';
-        }
+        function toggleDarkMode() {\n            // Visual fixo: sem alternância de tema\n        }
 
         function populateFilterDropdowns() {
             const macroSelect = document.getElementById('filter-macro');
@@ -621,14 +514,14 @@
 
             document.getElementById('empty-state').classList.add('hidden');
             container.innerHTML = filteredSops.map(sop => `
-                <div onclick="openSopModal('${sop.id}')" class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow-md hover:border-slate-500 transition cursor-pointer flex flex-col justify-between group">
+                <div onclick="openSopModal('${sop.id}')" class="bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-4 cursor-pointer flex flex-col justify-between" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
                     <div class="space-y-3">
                         <div class="flex items-center justify-between text-xs">
-                            <span class="font-mono font-bold px-2 py-0.5 rounded bg-slate-50 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">${sop.codigo}</span>
-                            <span class="text-slate-400 text-xs">${sop.lastEdited}</span>
+                            <span class="font-mono font-bold px-2 py-1 border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 bg-[#c0c0c0] text-black">${sop.codigo}</span>
+                            <span class="text-gray-400 text-xs">${sop.lastEdited}</span>
                         </div>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base group-hover:text-slate-600 transition">${sop.titulo}</h3>
-                        <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">${sop.objetivo}</p>
+                        <h3 class="font-bold text-black text-base" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">${sop.titulo}</h3>
+                        <p class="text-xs text-black line-clamp-2" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">${sop.objetivo}</p>
                     </div>
                 </div>
             `).join('');
@@ -639,23 +532,23 @@
             if (!sop) return;
             currentSopForModal = sop;
             document.getElementById('modal-code-badge').textContent = sop.codigo;
-            document.getElementById('modal-title').textContent = sop.titulo;
-            document.getElementById('modal-macro').textContent = sop.areaMacro;
-            document.getElementById('modal-sub').textContent = sop.subcategoria;
+            document.getElementById('modal-title-win').textContent = sop.titulo;
+            document.getElementById('modal-macro-win').textContent = sop.areaMacro;
+            document.getElementById('modal-sub-win').textContent = sop.subcategoria;
             const responsaveis = Array.isArray(sop.responsavel) && sop.responsavel.length
                 ? sop.responsavel.join(', ')
                 : (sop.responsavel || 'Não informado');
-            document.getElementById('modal-resp').textContent = responsaveis;
-            document.getElementById('modal-body').innerHTML = '<div class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-slate-500 text-2xl"></i><p class="text-xs text-slate-500 mt-2">Carregando conteúdo...</p></div>';
+            document.getElementById('modal-resp-win').textContent = responsaveis;
+            document.getElementById('modal-body-win').innerHTML = '<div class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-gray-500 text-2xl"></i><p class="text-xs text-gray-500 mt-2">Carregando conteúdo...</p></div>';
             document.getElementById('sop-modal').classList.remove('hidden');
 
             try {
                 const response = await fetch(`/api/sops/${id}/content`);
                 if (!response.ok) throw new Error('Erro ao buscar conteúdo');
                 const data = await response.json();
-                document.getElementById('modal-body').innerHTML = renderNotionMarkdown(data.content);
+                document.getElementById('modal-body-win').innerHTML = renderNotionMarkdown(data.content);
             } catch (err) {
-                document.getElementById('modal-body').innerHTML = '<div class="text-red-500 text-sm">Erro ao carregar o conteúdo do processo.</div>';
+                document.getElementById('modal-body-win').innerHTML = '<div class="text-red-500 text-sm">Erro ao carregar o conteúdo do processo.</div>';
             }
         }
 
@@ -668,7 +561,7 @@
         }
 
         // Intercepta cliques em links internos (?pop=ID) dentro do conteúdo do modal
-        document.getElementById('modal-body').addEventListener('click', function (e) {
+        document.getElementById('modal-body-win').addEventListener('click', function (e) {
             const link = e.target.closest('a.internal-pop-link');
             if (!link) return;
 
@@ -680,6 +573,18 @@
                 window.history.pushState({}, '', '?pop=' + encodeURIComponent(popId));
             }
         });
+
+        function minimizeWin() {
+            // Minimizar janela (placeholder)
+            const win = document.querySelector('#sop-modal .window');
+            if (win) win.style.display = 'none';
+        }
+
+        function maximizeWin() {
+            // Maximizar janela (placeholder)
+            const win = document.querySelector('#sop-modal .window');
+            if (win) win.style.width = win.style.width === '95vw' ? '700px' : '95vw';
+        }
 
         window.onload = async function () {
             initTheme();
@@ -694,4 +599,20 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
