@@ -234,32 +234,22 @@
 
     </main>
 
-        <!-- SOP DETAIL WINDOW (Windows 98 style) -->
+        <!-- SOP DETAIL WINDOW -->
     <div id="sop-modal" class="fixed inset-0 z-50 hidden overflow-y-auto no-print" aria-modal="true">
-        <div onclick="closeSopModal()" class="fixed inset-0 bg-[#808080]/40"></div>
+        <div onclick="closeSopModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
         <div class="flex min-h-full items-center justify-center p-4">
             <div class="window" style="width: 700px; height: 520px; position: relative;">
-                <div class="title-bar" style="background: linear-gradient(90deg, #000080 0%, #101080 100%); color: white;">
-                    <div class="title-bar-text" style="font-family: Tahoma, 'MS Sans Serif', sans-serif; font-weight: bold; font-size: 13px;">
-                        <i class="fa-solid fa-file" style="margin-right: 4px;"></i><span id="modal-title-win">POP - Processo</span>
-                    </div>
-                    <div class="title-bar-controls">
-                        <button class="icon-button" onclick="minimizeWin()">_</button>
-                        <button class="icon-button" onclick="maximizeWin()">□</button>
-                        <button class="icon-button" onclick="closeSopModal()" style="color: #ff0000; font-weight: bold;">×</button>
-                    </div>
-                </div>
-                <div class="window-body" style="overflow-y: auto; height: calc(100% - 30px); padding: 0;">
+                <div class="window-body" style="overflow-y: auto; height: 100%; padding: 0;">
                     <!-- Informações do processo -->
-                    <div style="padding: 8px 12px; border-bottom: 2px outset #c0c0c0; background: #c0c0c0;">
-                        <div class="flex flex-wrap items-center gap-3 text-xs" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
-                            <span id="modal-code-badge" class="font-mono font-bold text-black border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 px-2 py-1 bg-[#c0c0c0]">CODE-000</span>
-                            <span id="modal-status-badge" class="px-2 py-1 bg-[#000080] text-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 font-bold">Ativo</span>
-                            <div class="flex items-center gap-2 ml-auto">
-                                <button onclick="printCurrentSop()" class="button btn-retro" style="font-size: 11px; padding: 2px 8px;"><i class="fa-solid fa-print" style="margin-right: 3px;"></i>Imprimir</button>
-                                <button onclick="copySopLink()" class="button btn-retro" style="font-size: 11px; padding: 2px 8px;"><i class="fa-solid fa-link" style="margin-right: 3px;"></i>Link</button>
-                                <button onclick="openQrModal()" class="button btn-retro" style="font-size: 11px; padding: 2px 8px;"><i class="fa-solid fa-qrcode" style="margin-right: 3px;"></i>QR</button>
-                                <button onclick="closeSopModal()" class="button btn-retro" style="font-size: 11px; padding: 2px 8px; background: #ff0000; color: white; border-color: #ff0000;">Fechar</button>
+                    <div style="padding: 10px 14px; border-bottom: 2px outset #c0c0c0; background: #c0c0c0;">
+                        <div class="flex flex-wrap items-center justify-between gap-3 text-xs" style="font-family: Tahoma, 'MS Sans Serif', sans-serif;">
+                            <div class="flex items-center gap-2">
+                                <span id="modal-code-badge" class="font-mono font-bold text-black border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 px-2 py-1 bg-[#c0c0c0]">CODE-000</span>
+                                <span id="modal-status-badge" class="px-2 py-1 bg-[#000080] text-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 font-bold">Ativo</span>
+                                <span id="modal-title-win" class="font-bold text-black ml-2 text-sm">POP - Processo</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="closeSopModal()" class="button btn-retro" style="font-size: 11px; padding: 3px 12px; background: #c0c0c0; font-weight: bold;">Fechar</button>
                             </div>
                         </div>
                     </div>
