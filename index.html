@@ -432,7 +432,7 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
 
         async function fetchSops() {
             try {
-                const response = await fetch('http://localhost:3000/api/sops');
+                const response = await fetch('/api/sops');
                 if (!response.ok) throw new Error('Falha ao conectar na API');
                 sopDatabase = await response.json();
                 filteredSops = [...sopDatabase];
@@ -440,7 +440,7 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
                 renderSopCards();
             } catch (error) {
                 console.error('Erro ao buscar processos:', error);
-                document.getElementById('sops-grid').innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Erro ao carregar processos. Verifique se o backend está rodando (npm start).</div>';
+                document.getElementById('sops-grid').innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Erro ao carregar processos. Verifique se o servidor está rodando (npm run dev).</div>';
             }
         }
 
@@ -526,7 +526,7 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
             document.getElementById('sop-modal').classList.remove('hidden');
 
             try {
-                const response = await fetch(`http://localhost:3000/api/sops/${id}/content`);
+                const response = await fetch(`/api/sops/${id}/content`);
                 if (!response.ok) throw new Error('Erro ao buscar conteúdo');
                 const data = await response.json();
                 document.getElementById('modal-body').innerHTML = renderNotionMarkdown(data.content);
