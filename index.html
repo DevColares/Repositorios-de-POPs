@@ -79,16 +79,15 @@
             border-left-color: #38bdf8;
         }
         .notion-callout p { margin: 0; }
-        /* Força cada lista numerada a reiniciar do 1, mesmo com listas adjacentes */
+        /* Listas numeradas: deixa o browser e o Tailwind prose gerenciarem a
+           numeração nativamente — respeita o atributo HTML start= */
         .prose ol {
-            counter-reset: list-item;
             list-style-type: decimal;
         }
-        .prose ol > li {
-            counter-increment: list-item;
-        }
-        .prose ol > li::marker {
-            content: counter(list-item) ". ";
+        .prose ol > li,
+        .prose ul > li {
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
         }
     </style>
 </head>
@@ -384,29 +383,55 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
          * unica <ol> e a numeracao continua. Inserimos um separador invisivel
          * (comentario HTML) para forcar <ol> distintas.
          */
+        /**
+         * Normaliza listas numeradas vindas do notion-to-md:
+         * - Remove linhas em branco entre itens sequenciais (notion-to-md às vezes
+         *   insere blanks entre itens de uma mesma lista)
+         * - Insere separador HTML quando uma nova lista reinicia a partir de 1
+         */
         function normalizeNumberedLists(md) {
             const lines = md.split('\n');
             const result = [];
-            const listRegex = /^(\d+)\.\s/;
+            const numReg = /^( *)(\d+)\. /;
 
             for (let i = 0; i < lines.length; i++) {
-                const current = lines[i];
-                const prev = result.length > 0 ? result[result.length - 1] : '';
-                const prevMatch = prev.match(listRegex);
-                const currentMatch = current.match(listRegex);
+                const line = lines[i];
 
-                if (currentMatch && prevMatch) {
-                    const prevNum = parseInt(prevMatch[1], 10);
-                    const currentNum = parseInt(currentMatch[1], 10);
-                    // Se a numeracao reiniciou, insere separador invisivel
-                    if (currentNum <= prevNum) {
-                        result.push('');
-                        result.push('<!-- -->');
-                        result.push('');
+                if (line.trim() === '' && i + 1 < lines.length) {
+                    // Acha o último item não-vazio no resultado
+                    let lastNonBlank = '';
+                    for (let k = result.length - 1; k >= 0; k--) {
+                        if (result[k].trim() !== '') { lastNonBlank = result[k]; break; }
+                    }
+                    // Acha o próximo item não-vazio à frente
+                    let nextIdx = i + 1;
+                    while (nextIdx < lines.length && lines[nextIdx].trim() === '') nextIdx++;
+                    const nextLine = nextIdx < lines.length ? lines[nextIdx] : '';
+
+                    const prevM = lastNonBlank.match(numReg);
+                    const nextM = nextLine.match(numReg);
+
+                    if (prevM && nextM && prevM[1] === nextM[1]) {
+                        const prevNum = parseInt(prevM[2], 10);
+                        const nextNum = parseInt(nextM[2], 10);
+
+                        if (nextNum === prevNum + 1) {
+                            // Sequência contínua — remove a(s) linha(s) em branco
+                            i = nextIdx - 1;
+                            continue;
+                        }
+                        if (nextNum === 1 && prevNum > 1) {
+                            // Nova lista reiniciando — garante separador visível
+                            result.push('');
+                            result.push('<!-- list-break -->');
+                            result.push('');
+                            i = nextIdx - 1;
+                            continue;
+                        }
                     }
                 }
 
-                result.push(current);
+                result.push(line);
             }
 
             return result.join('\n');
@@ -420,14 +445,11 @@ export async function getProcessosFromNotion(): Promise&lt;ProcessSOP[]&gt; {
             let md = normalizeNumberedLists(mdContent || '*Nenhum conteúdo encontrado para este processo.*');
             const rawHtml = marked.parse(md);
 
-            return rawHtml
-                // Forca cada <ol> a comecar do 1 (garantia extra)
-                .replace(/<ol(\s|>)/g, '<ol start="1"$1')
-                // Transforma blockquotes gerados a partir de callouts do Notion em divs estilizadas
-                .replace(
-                    /<blockquote>\s*(<p>)?\s*(\p{Emoji})\s*<strong>Aviso:<\/strong>\s*(.*?)\s*(<\/p>)?\s*<\/blockquote>/gus,
-                    '<div class="notion-callout"><p>$2 <strong>Aviso:</strong> $3</p></div>'
-                );
+            // Transforma blockquotes de callouts do Notion em divs estilizadas
+            return rawHtml.replace(
+                /<blockquote>\s*(<p>)?\s*(\p{Emoji})\s*<strong>Aviso:<\/strong>\s*(.*?)\s*(<\/p>)?\s*<\/blockquote>/gus,
+                '<div class="notion-callout"><p>$2 <strong>Aviso:</strong> $3</p></div>'
+            );
         }
 
         async function fetchSops() {
