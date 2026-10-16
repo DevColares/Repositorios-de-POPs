@@ -464,19 +464,7 @@
                 gfm: true,
                 breaks: true,
                 headerIds: false,
-                mangle: false,
-                renderer: {
-                    list(token) {
-                        const ordered = typeof token === 'object' ? token.ordered : arguments[1];
-                        const body = typeof token === 'object' ? this.parser.parse(token.items) : token;
-                        const start = typeof token === 'object' && token.start ? token.start : (arguments[2] || 1);
-                        if (ordered) {
-                            const startAttr = start && start !== 1 ? ` start="${start}"` : '';
-                            return `<ol${startAttr}>\n${body}</ol>\n`;
-                        }
-                        return `<ul>\n${body}</ul>\n`;
-                    }
-                }
+                mangle: false
             });
         }
 
@@ -701,11 +689,18 @@
 
             try {
                 const response = await fetch(`/api/sops/${id}/content`);
-                if (!response.ok) throw new Error('Erro ao buscar conteúdo');
+                if (!response.ok) throw new Error('Erro ao buscar conteúdo da API: ' + response.statusText);
                 const data = await response.json();
-                document.getElementById('modal-body-win').innerHTML = renderNotionMarkdown(data.content);
+                try {
+                    document.getElementById('modal-body-win').innerHTML = renderNotionMarkdown(data.content);
+                } catch (renderErr) {
+                    console.error('Erro na renderização do markdown:', renderErr);
+                    // Fallback para renderização direta do marked se a customização falhar
+                    document.getElementById('modal-body-win').innerHTML = marked.parse(data.content || '');
+                }
             } catch (err) {
-                document.getElementById('modal-body-win').innerHTML = '<div class="text-red-500 text-sm">Erro ao carregar o conteúdo do processo.</div>';
+                console.error('Erro ao buscar processo:', err);
+                document.getElementById('modal-body-win').innerHTML = '<div class="text-red-500 text-sm">Erro ao carregar o conteúdo do processo. Verifique o console (F12) para detalhes.</div>';
             }
         }
 
